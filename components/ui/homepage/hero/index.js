@@ -38,7 +38,7 @@ export default function Hero() {
                   Loading...
                 </Button>
               ) : account.data ? (
-                <a href={`/#${account.data}`}>
+                <a href="/">
                   <Button className="px-8 hover:text-gray-900 hover:bg-gray-100 font-bold inline-flex gap-2">
                     <Image
                       src="/img/avatarZoom.jpg"
