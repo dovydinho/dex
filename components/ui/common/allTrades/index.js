@@ -20,10 +20,6 @@ export default function AllTrades({ trades, user, web3 }) {
         name: 'Price',
         data: tradePrices
       }
-      // {
-      //   name: 'Time',
-      //   data: tradeTime
-      // }
     ],
     options: {
       chart: {
@@ -90,21 +86,6 @@ export default function AllTrades({ trades, user, web3 }) {
             color: '#fff'
           }
         }
-        // {
-        //   opposite: true,
-        //   labels: {
-        //     formatter: function (value) {
-        //       return Number(value).toFixed(1) + ' USDC';
-        //     },
-        //     style: {
-        //       colors: '#fff'
-        //     }
-        //   },
-        //   axisBorder: {
-        //     show: true,
-        //     color: '#fff'
-        //   }
-        // }
       ],
       tooltip: {
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {

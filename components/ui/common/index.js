@@ -4,7 +4,6 @@ export { default as Dropdown } from './dropdown';
 export { default as Header } from './header';
 export { default as Wallet } from './wallet';
 export { default as Transfer } from './transfer';
-// export { default as LoadingContainer } from './loading';
 export { default as LoadingSpinner } from './loadingSpinner';
 export { default as Web3Container } from './web3Container';
 export { default as NewOrder } from './newOrder';

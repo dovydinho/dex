@@ -13,7 +13,6 @@ export default function Hero() {
     <>
       <div className="">
         <Navbar />
-
         <div className="min-h-4/5 container sm:flex gap-8 mx-auto text-gray-100 p-12 sm:py-36 md:py-56">
           <div className="w-full sm:w-1/2">
             <p className="text-4xl lg:text-6xl font-bold leading-snug mb-8">

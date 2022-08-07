@@ -1,7 +1,6 @@
 import {
   AllOrders,
   AllTrades,
-  LoadingSpinner,
   MyOrders,
   Navbar,
   NewOrder,

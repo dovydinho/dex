@@ -17,7 +17,6 @@ export default function LoadingContainer() {
       setAccounts(accounts);
     };
     init();
-    // eslint-disable-next-line
   }, []);
 
   const isReady = () => {

@@ -74,12 +74,6 @@ export default function MyOrders({ contracts, orders, user, web3 }) {
                           <XCircleIcon className="ml-4 text-red-500 w-6 h-6 hover:cursor-pointer hover:scale-125 duration-300" />
                         </button>
                       </form>
-                      {/* <XCircleIcon
-                        className="ml-4 text-red-500 w-6 h-6 hover:cursor-pointer hover:scale-125 duration-300"
-                        onClick={() => {
-                          cancelOrder(order.ticker, order.side, order.id);
-                        }}
-                      /> */}
                     </td>
                   </tr>
                 ))}
