@@ -24,17 +24,6 @@ export const useTokens = () => {
 
           setTokenContracts((tokenContracts) => [object, ...tokenContracts]);
         }
-        // const tokenContractsFormat = callGetTokens.reduce(
-        //   (acc, token) => ({
-        //     ...acc,
-        //     [web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(
-        //       Artifact,
-        //       token.tokenAddress
-        //     )
-        //   }),
-        //   {}
-        // );
-        // setTokenContracts(tokenContractsFormat);
       }
     };
     init();
