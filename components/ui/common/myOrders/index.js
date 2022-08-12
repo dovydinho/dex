@@ -58,7 +58,6 @@ export default function MyOrders({ contracts, orders, user, web3 }) {
                         web3.utils.toBN(order.amount - order.filled),
                         'ether'
                       )}
-                      {/* {order.amount - order.filled} */}
                     </td>
                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {web3.utils.fromWei(web3.utils.toBN(order.price), 'kwei')}

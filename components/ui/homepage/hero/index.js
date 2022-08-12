@@ -136,31 +136,6 @@ export default function Hero() {
             </p>
           </div>
         </div>
-        <div className="relative bottom-0 w-full text-center py-8">
-          <p className="text-center text-gray-100">
-            Open source code available on{' '}
-            <Link href="https://github.com/dovydinho/dex">
-              <a
-                target="_blank"
-                className="font-bold border-dashed hover:border-b hover:border-b-2"
-              >
-                Github
-              </a>
-            </Link>
-            <br />
-            Built by{' '}
-            <span className="font-bold">
-              <Link href="https://twitter.com/dovydinho">
-                <a
-                  target="_blank"
-                  className="font-bold border-dashed hover:border-b hover:border-b-2"
-                >
-                  @dovydinho
-                </a>
-              </Link>
-            </span>
-          </p>
-        </div>
       </div>
     </>
   );
