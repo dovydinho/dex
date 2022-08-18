@@ -16,7 +16,7 @@ export default function Dashboard({ user, tokens, trades, web3, selectToken }) {
               Listed Tokens
             </h1>
 
-            <div className="grid grid-cols-4 gap-8 px-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 px-8">
               {tokens.map((token, i) =>
                 token.ticker !== 'USDC' ? (
                   <div
