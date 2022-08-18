@@ -115,36 +115,42 @@ export default function AllTrades({ trades, user, web3 }) {
   }, [user.selectedToken.ticker]);
 
   useEffect(() => {
-    trades.map((trade) => {
-      setTradePrices((tradePrices) => [
-        ...tradePrices,
-        web3.utils.fromWei(trade.price, 'kwei')
-      ]);
-      setTradeTime((tradeTime) => [...tradeTime, trade.date]);
-    });
+    const init = async () => {
+      console.log('async.');
+      trades.map((trade) => {
+        setTradePrices((tradePrices) => [
+          ...tradePrices,
+          web3.utils.fromWei(trade.price, 'kwei')
+        ]);
+        setTradeTime((tradeTime) => [...tradeTime, trade.date]);
+      });
 
-    setSlice(10);
+      setSlice(10);
 
-    setDisplayTrades(
-      trades.slice(0, slice).map(function (trade, i) {
-        return (
-          <tr className="bg-white border-b" key={i}>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) /
-                100}
-            </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              {Math.round(web3.utils.fromWei(trade.price, 'kwei') * 100) / 100}
-            </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-              <Moment fromNow>{parseInt(trade.date) * 1000}</Moment>
-            </td>
-          </tr>
-        );
-      })
-    );
+      setDisplayTrades(
+        trades.slice(0, slice).map(function (trade, i) {
+          return (
+            <tr className="bg-white border-b" key={i}>
+              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) /
+                  100}
+              </td>
+              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {Math.round(web3.utils.fromWei(trade.price, 'kwei') * 100) /
+                  100}
+              </td>
+              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <Moment fromNow>{parseInt(trade.date) * 1000}</Moment>
+              </td>
+            </tr>
+          );
+        })
+      );
 
-    setHasMore(true);
+      setHasMore(true);
+    };
+
+    init();
 
     setTimeout(() => {
       setLoading(false);
