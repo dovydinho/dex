@@ -115,42 +115,38 @@ export default function AllTrades({ trades, user, web3 }) {
   }, [user.selectedToken.ticker]);
 
   useEffect(() => {
-    const init = async () => {
-      console.log('async.');
-      trades.map((trade) => {
-        setTradePrices((tradePrices) => [
-          ...tradePrices,
-          web3.utils.fromWei(trade.price, 'kwei')
-        ]);
-        setTradeTime((tradeTime) => [...tradeTime, trade.date]);
-      });
+    setLoading(true);
 
-      setSlice(10);
+    trades.map((trade) => {
+      setTradePrices((tradePrices) => [
+        ...tradePrices,
+        web3.utils.fromWei(trade.price, 'kwei')
+      ]);
+      setTradeTime((tradeTime) => [...tradeTime, trade.date]);
+    });
 
-      setDisplayTrades(
-        trades.slice(0, slice).map(function (trade, i) {
-          return (
-            <tr className="bg-white border-b" key={i}>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) /
-                  100}
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {Math.round(web3.utils.fromWei(trade.price, 'kwei') * 100) /
-                  100}
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <Moment fromNow>{parseInt(trade.date) * 1000}</Moment>
-              </td>
-            </tr>
-          );
-        })
-      );
+    setSlice(10);
 
-      setHasMore(true);
-    };
+    setDisplayTrades(
+      trades.slice(0, slice).map(function (trade, i) {
+        return (
+          <tr className="bg-white border-b" key={i}>
+            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) /
+                100}
+            </td>
+            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              {Math.round(web3.utils.fromWei(trade.price, 'kwei') * 100) / 100}
+            </td>
+            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              <Moment fromNow>{parseInt(trade.date) * 1000}</Moment>
+            </td>
+          </tr>
+        );
+      })
+    );
 
-    init();
+    setHasMore(true);
 
     setTimeout(() => {
       setLoading(false);
@@ -264,8 +260,6 @@ export default function AllTrades({ trades, user, web3 }) {
               </>
             )}
           </div>
-        ) : loading === true ? (
-          <LoadingSpinner />
         ) : (
           <h1 className="italic text-center py-6">
             There are no trades for this Token.
