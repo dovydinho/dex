@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
-import { loadContract } from '@utils/loadContract';
 import { getContracts } from '@utils/index';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
