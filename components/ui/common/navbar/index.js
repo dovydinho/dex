@@ -1,7 +1,7 @@
-import { useWeb3 } from '@components/providers';
 import { Button, Dropdown } from '@components/ui/common';
+import { useWeb3 } from '@components/providers';
 import { useAccount, useNetwork } from '@components/hooks/web3';
-import { ArrowCircleDownIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 
 export default function Navbar({ tokens, user, selectToken }) {

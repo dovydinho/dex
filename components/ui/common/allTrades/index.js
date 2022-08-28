@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import LoadingSpinner from '../loadingSpinner';
 import Moment from 'react-moment';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import LoadingSpinner from '../loadingSpinner';
 
 export default function AllTrades({ trades, user, web3 }) {
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });

@@ -1,5 +1,5 @@
-import React from 'react';
 import Moment from 'react-moment';
+import React from 'react';
 
 export default function AllOrders({ orders, user, web3 }) {
   const renderList = (orders, side) => {

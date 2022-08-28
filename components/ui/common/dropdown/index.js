@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ChevronLeftIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import { Button } from '@components/ui/common';
+import { ChevronLeftIcon, ChevronDownIcon } from '@heroicons/react/outline';
+import React, { useState, useRef } from 'react';
 
 export default function Dropdown({ onSelect, activeItem, items }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);

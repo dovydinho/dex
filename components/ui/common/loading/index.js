@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getWeb3, getContracts } from '@utils/index';
 import Home from '@pages/index';
+import { getWeb3, getContracts } from '@utils/index';
+import React, { useState, useEffect } from 'react';
 
 export default function LoadingContainer() {
   const [web3, setWeb3] = useState(undefined);

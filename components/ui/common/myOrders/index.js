@@ -1,6 +1,6 @@
 import { XCircleIcon } from '@heroicons/react/outline';
-import React from 'react';
 import Moment from 'react-moment';
+import React from 'react';
 
 export default function MyOrders({ contracts, orders, user, web3 }) {
   const cancelOrder = async (e, _ticker, _side, _id) => {

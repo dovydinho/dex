@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { Hero } from '@components/ui/homepage';
 import Home from '@pages/index';
 import { useWeb3 } from '@components/providers';
-import { Hero } from '@components/ui/homepage';
 import { useAccount } from '@components/hooks/web3';
+import React, { useState, useEffect } from 'react';
 
 export default function Web3Container() {
   const [isReady, setIsReady] = useState(false);
