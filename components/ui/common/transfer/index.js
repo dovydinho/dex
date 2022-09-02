@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@components/ui/common';
+import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 
 const DIRECTION = {
   WITHDRAW: 'WITHDRAW',
@@ -21,9 +22,10 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
   return (
     <>
       <div className="w-full sm:w-1/2 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-500/[.25] duration-300 p-12 sm:p-6 md:p-12 bg-gray-100/[.05] border rounded-2xl border-indigo-600">
-        <h1 className="text-center text-xl md:text-2xl font-bold mb-8">
-          Transfer
-        </h1>
+        {/* <h1 className="text-center text-xl md:text-2xl font-bold">Transfer</h1> */}
+        <div className="flex justify-center items-center text-xl md:text-2xl font-bold mb-8">
+          Wallet <SwitchHorizontalIcon className="pt-1 w-8 h-8" /> Exchange
+        </div>
         <div className="mt-4">
           <form id="transfer" onSubmit={(e) => onSubmit(e)}>
             <div className="flex justify-center items-center">
@@ -34,7 +36,7 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
                 }`}
                 onClick={() => setDirection(DIRECTION.DEPOSIT)}
               >
-                Deposit
+                to Exchange
               </Button>
               <Button
                 type="button"
@@ -43,7 +45,7 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
                 }`}
                 onClick={() => setDirection(DIRECTION.WITHDRAW)}
               >
-                Withdraw
+                to Wallet
               </Button>
             </div>
             <label className="block mt-4">
@@ -61,7 +63,7 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
               type="submit"
               className={'bg-indigo-600 hover:bg-indigo-800 w-full mt-4'}
             >
-              Submit
+              Transfer
             </Button>
           </form>
         </div>

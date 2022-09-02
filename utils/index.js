@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Dex from '@contracts/Dex.json';
+import USDC from '@contracts/Usdc.json';
 import ERC20Abi from '@base/public/src/ERC20Abi.json';
 
 const getWeb3 = () =>
@@ -30,7 +31,7 @@ const getContracts = async (web3) => {
     (acc, token) => ({
       ...acc,
       [web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(
-        ERC20Abi,
+        web3.utils.hexToUtf8(token.ticker) === 'USDC' ? USDC.abi : ERC20Abi,
         token.tokenAddress
       )
     }),

@@ -7,7 +7,7 @@ export default function MyOrders({ contracts, orders, user, web3 }) {
     e.preventDefault();
     await contracts.dex.methods
       .deleteOrder(_ticker, _side, _id)
-      .send({ from: user.accounts[0] });
+      .send({ from: user.account.data });
   };
   const renderList = (orders, side) => {
     return (

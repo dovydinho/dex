@@ -28,7 +28,9 @@ export default function Header({ tokens, user, selectToken }) {
           </li>
         </ul>
         <div>
-          {user.accounts[0].slice(2, 6) + `-` + user.accounts[0].slice(38, 42)}
+          {user.account.data.slice(2, 6) +
+            `-` +
+            user.account.data.slice(38, 42)}
         </div>
       </div>
     </nav>

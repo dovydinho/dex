@@ -79,7 +79,7 @@ export default function Navbar({ tokens, user, selectToken }) {
         {tokens && tokens.length > 0 && (
           <div className="grid place-items-center">
             <Dropdown
-              items={tokens.map((token) => ({
+              tokens={tokens.map((token) => ({
                 label: token.ticker,
                 value: token
               }))}

@@ -12,11 +12,11 @@ export default function Wallet({ user, web3 }) {
 
         <div className="grid grid-cols-2 divide-x divide-gray-600">
           <div className="col">
-            <h1 className="text-gray-400">Wallet</h1>
+            <h1 className="text-gray-400 uppercase font-bold">Wallet</h1>
             <h1 className="text-lg">{Number(tokenWallet).toFixed(3)}</h1>
           </div>
           <div className="col px-4">
-            <h1 className="text-gray-400">Exchange</h1>
+            <h1 className="text-gray-400 uppercase font-bold">Exchange</h1>
             <h1 className="text-lg">{Number(tokenDex).toFixed(3)}</h1>
           </div>
         </div>

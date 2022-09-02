@@ -11,8 +11,9 @@ export default function AllTrades({ trades, user, web3 }) {
   const [hasMore, setHasMore] = useState(true);
 
   const [tradePrices, setTradePrices] = useState([]);
-  const [tradeTime, setTradeTime] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(trades);
 
   const state = {
     series: [
@@ -105,14 +106,18 @@ export default function AllTrades({ trades, user, web3 }) {
   };
 
   useEffect(() => {
-    setLoading(true);
-  }, []);
-
-  useEffect(() => {
     setTradePrices([]);
     setDisplayTrades([]);
     setLoading(true);
   }, [user.selectedToken.ticker]);
+
+  // useEffect(() => {
+  //   setLoading(true);
+
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 1000);
+  // }, [user.account.data]);
 
   useEffect(() => {
     setLoading(true);
@@ -122,7 +127,6 @@ export default function AllTrades({ trades, user, web3 }) {
         ...tradePrices,
         web3.utils.fromWei(trade.price, 'kwei')
       ]);
-      setTradeTime((tradeTime) => [...tradeTime, trade.date]);
     });
 
     setSlice(10);
@@ -261,9 +265,11 @@ export default function AllTrades({ trades, user, web3 }) {
             )}
           </div>
         ) : (
-          <h1 className="italic text-center py-6">
-            There are no trades for this Token.
-          </h1>
+          !loading && (
+            <h1 className="italic text-center py-6">
+              There are no trades for this Token.
+            </h1>
+          )
         )}
       </div>
     </>

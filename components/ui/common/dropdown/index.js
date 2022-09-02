@@ -2,7 +2,7 @@ import { Button } from '@components/ui/common';
 import { ChevronLeftIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import React, { useState, useRef } from 'react';
 
-export default function Dropdown({ onSelect, activeItem, items }) {
+export default function Dropdown({ onSelect, activeItem, tokens }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const selectItem = (e, item) => {
     e.preventDefault();
@@ -48,8 +48,8 @@ export default function Dropdown({ onSelect, activeItem, items }) {
             className="divide-y divide-purple-500 text-sm text-gray-100"
             aria-labelledby="dropdownDefault"
           >
-            {items &&
-              items.map((item, i) => (
+            {tokens &&
+              tokens.map((item, i) => (
                 <li key={i}>
                   <a
                     href="#"
