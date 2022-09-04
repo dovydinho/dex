@@ -576,7 +576,7 @@ module.exports = async function (deployer, _network, accounts) {
     dex.createLimitOrder(
       GRT,
       web3.utils.toWei('500'),
-      web3.utils.toWei('0.28', 'kwei'),
+      web3.utils.toWei('0.38', 'kwei'),
       SIDE.SELL,
       {
         from: trader3,
@@ -586,7 +586,7 @@ module.exports = async function (deployer, _network, accounts) {
     dex.createLimitOrder(
       GRT,
       web3.utils.toWei('600'),
-      web3.utils.toWei('0.32', 'kwei'),
+      web3.utils.toWei('0.42', 'kwei'),
       SIDE.SELL,
       {
         from: trader4,
@@ -596,7 +596,7 @@ module.exports = async function (deployer, _network, accounts) {
     dex.createLimitOrder(
       GRT,
       web3.utils.toWei('800'),
-      web3.utils.toWei('0.34', 'kwei'),
+      web3.utils.toWei('0.44', 'kwei'),
       SIDE.SELL,
       {
         from: trader4,

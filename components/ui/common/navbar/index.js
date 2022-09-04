@@ -3,6 +3,7 @@ import { useWeb3 } from '@components/providers';
 import { useAccount, useNetwork } from '@components/hooks/web3';
 import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Navbar({ tokens, user, selectToken }) {
   const { connect, isLoading, requireInstall } = useWeb3();
@@ -17,17 +18,20 @@ export default function Navbar({ tokens, user, selectToken }) {
     <>
       <nav className="pt-8 pb-4 font-medium text-white">
         <div className="flex flex-wrap justify-between items-center mx-auto px-8">
-          <a href="/" className="flex items-center gap-2">
-            <Image
-              src="/img/avatar.jpg"
-              width="50px"
-              height="50px"
-              className="rounded-full w-10 h-10"
-            />
-            <span className="self-center text-xl font-semibold whitespace-nowrap hidden md:block">
-              Decentralized Exchange App
-            </span>
-          </a>
+          <Link href="/">
+            <a className="flex items-center gap-2">
+              <Image
+                src="/img/avatar.jpg"
+                width="50px"
+                height="50px"
+                className="rounded-full w-10 h-10"
+                alt=""
+              />
+              <span className="self-center text-xl font-semibold whitespace-nowrap hidden md:block">
+                Decentralized Exchange App
+              </span>
+            </a>
+          </Link>
           <div className="flex lg:order-2">
             {isLoading ? (
               <Button
@@ -49,6 +53,7 @@ export default function Navbar({ tokens, user, selectToken }) {
                     width="25px"
                     height="25px"
                     className="rounded-full"
+                    alt=""
                   />
                   {account.data.slice(2, 6) + `-` + account.data.slice(38, 42)}
                 </Button>

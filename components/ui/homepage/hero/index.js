@@ -37,25 +37,28 @@ export default function Hero() {
                   Loading...
                 </Button>
               ) : account.data ? (
-                <a href="/">
-                  <Button className="px-8 hover:text-gray-900 hover:bg-gray-100 font-bold inline-flex gap-2">
-                    <Image
-                      src="/img/avatarZoom.jpg"
-                      width="25px"
-                      height="25px"
-                      className="rounded-full"
-                    />
-                    {account.data.slice(2, 6) +
-                      `-` +
-                      account.data.slice(38, 42)}
-                  </Button>
-                </a>
+                <Link href="/">
+                  <a>
+                    <Button className="px-8 hover:text-gray-900 hover:bg-gray-100 font-bold inline-flex gap-2">
+                      <Image
+                        src="/img/avatarZoom.jpg"
+                        width="25px"
+                        height="25px"
+                        className="rounded-full"
+                        alt=""
+                      />
+                      {account.data.slice(2, 6) +
+                        `-` +
+                        account.data.slice(38, 42)}
+                    </Button>
+                  </a>
+                </Link>
               ) : requireInstall ? (
                 <Button
                   onClick={() =>
                     window.open('https://metamask.io/download.html', '_blank')
                   }
-                  className="px-8 font-bold border border-2 border-purple-400 rounded-full hover:text-gray-900 hover:bg-gray-100 bg-red-500 text-gray-100 inline-flex"
+                  className="px-8 font-bold border-2 border-purple-400 rounded-full hover:text-gray-900 hover:bg-gray-100 bg-red-500 text-gray-100 inline-flex"
                 >
                   <div className="animate-bounce mr-2">
                     <ArrowCircleDownIcon className="w-6 h-6 m-auto" />
@@ -65,7 +68,7 @@ export default function Hero() {
               ) : (
                 <Button
                   onClick={connect}
-                  className="px-8 font-bold border border-2 border-purple-400 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                  className="px-8 font-bold border-2 border-purple-400 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
                 >
                   Connect to Metamask
                 </Button>
@@ -74,12 +77,15 @@ export default function Hero() {
           </div>
           <div className="py-12 w-full sm:w-1/2">
             <div className="grid grid-cols-2 gap-2 md:gap-4 lg:gap-8">
-              <div className="cursor-pointer hover:scale-105 flex h-24 border border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 duration-300">
+              <div className="cursor-pointer hover:scale-105 flex h-24 border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 duration-300">
                 <div className="m-auto">
                   <div className="grid grid-cols-2">
-                    <img
+                    <Image
                       src="https://assets.coingecko.com/coins/images/13397/small/Graph_Token.png"
-                      className="w-15 h-15"
+                      layout="fixed"
+                      width={50}
+                      height={50}
+                      alt=""
                     />
                     <div>
                       <p>The Grapth</p>
@@ -88,12 +94,15 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <div className="cursor-pointer hover:scale-105 flex h-24 border border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 duration-300">
+              <div className="cursor-pointer hover:scale-105 flex h-24 border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 duration-300">
                 <div className="m-auto">
                   <div className="grid grid-cols-2">
-                    <img
+                    <Image
                       src="https://assets.coingecko.com/coins/images/877/small/chainlink-new-logo.png"
-                      className="w-15 h-15"
+                      layout="fixed"
+                      width={50}
+                      height={50}
+                      alt=""
                     />
                     <div>
                       <p>Chainlink</p>
@@ -102,12 +111,15 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <div className="cursor-pointer hover:scale-105 flex h-24 border border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 duration-300">
+              <div className="cursor-pointer hover:scale-105 flex h-24 border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 duration-300">
                 <div className="m-auto">
                   <div className="grid grid-cols-2">
-                    <img
+                    <Image
                       src="https://assets.coingecko.com/coins/images/878/small/decentraland-mana.png"
-                      className="w-15 h-15"
+                      layout="fixed"
+                      width={50}
+                      height={50}
+                      alt=""
                     />
                     <div>
                       <p>Decentraland</p>
@@ -116,15 +128,19 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <div className="cursor-pointer hover:scale-105 flex h-24 border border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 duration-300">
+              <div className="cursor-pointer hover:scale-105 flex h-24 border-2 border-purple-400 rounded-3xl p-4 text-center bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 duration-300">
                 <div className="m-auto">
                   <div className="grid grid-cols-2">
-                    <img
+                    <Image
                       src="https://assets.coingecko.com/coins/images/12129/small/sandbox_logo.jpg"
-                      className="w-15 h-15 rounded-full"
+                      layout="fixed"
+                      width={50}
+                      height={50}
+                      alt=""
+                      className="rounded-full"
                     />
                     <div>
-                      <p>The Sandbox</p>
+                      <p className="invisible sm:visible">The Sandbox</p>
                       <p className="font-bold">SAND</p>
                     </div>
                   </div>

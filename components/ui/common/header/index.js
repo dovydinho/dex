@@ -1,14 +1,17 @@
 import { Dropdown } from '@components/ui/common';
+import Link from 'next/link';
 
 export default function Header({ tokens, user, selectToken }) {
   return (
     <nav className="pt-8 pb-4 font-medium text-white">
       <div className="flex flex-wrap justify-between items-center mx-auto px-8">
-        <a href="/" className="flex items-center gap-2">
-          <span className="self-center text-xl font-semibold whitespace-nowrap hidden md:block">
-            Decentralized Exchange App
-          </span>
-        </a>
+        <Link href="/">
+          <a className="flex items-center gap-2">
+            <span className="self-center text-xl font-semibold whitespace-nowrap hidden md:block">
+              Decentralized Exchange App
+            </span>
+          </a>
+        </Link>
         <ul className="flex flex-col mt-4 lg:flex-row lg:space-x-4 lg:mt-0 lg:text-base lg:font-medium">
           <li className="pt-2">Token to Trade:</li>
           <li>

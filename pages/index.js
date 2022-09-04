@@ -9,7 +9,7 @@ import {
   Transfer,
   Wallet
 } from '@components/ui/common';
-import { Dashboard, LoadingScreenSpinner } from '@components/ui/homepage';
+import { LoadingScreenSpinner } from '@components/ui/homepage';
 import MainLayout from '@components/ui/layout/main';
 import { useState, useEffect } from 'react';
 
@@ -23,7 +23,7 @@ export default function Home({ web3, contracts }) {
 
   const [tokens, setTokens] = useState([]);
   const [user, setUser] = useState({
-    account: undefined,
+    account: account,
     balances: {
       tokenDex: 0,
       tokenWallet: 0
@@ -122,32 +122,31 @@ export default function Home({ web3, contracts }) {
         side
       )
       .send({ from: account.data });
-    const orders = await getOrders(user.selectedToken);
+    let orders = await getOrders(user.selectedToken);
     setOrders(orders);
   };
 
   useEffect(() => {
-    const init = async () => {
-      const rawTokens = await contracts.dex.methods.getTokens().call();
-      const tokens = rawTokens.map((token) => ({
+    let init = async () => {
+      let rawTokens = await contracts.dex.methods.getTokens().call();
+      let tokens = rawTokens.map((token) => ({
         ...token,
         ticker: web3.utils.hexToUtf8(token.ticker)
       }));
-      const [balances, orders] = await Promise.all([
+      let [balances, orders] = await Promise.all([
         getBalances(account.data, tokens[0]),
         getOrders(tokens[0])
       ]);
-      listenToTrades(tokens[0]);
       setTokens(tokens);
-      setUser({ account, balances, selectedToken: tokens[0] });
+      setUser((user) => ({ ...user, balances, selectedToken: tokens[0] }));
       setOrders(orders);
     };
     init();
   }, []);
 
   useEffect(() => {
-    const init = async () => {
-      const [balances, orders] = await Promise.all([
+    let init = async () => {
+      let [balances, orders] = await Promise.all([
         getBalances(account.data, user.selectedToken),
         getOrders(user.selectedToken)
       ]);
@@ -156,14 +155,13 @@ export default function Home({ web3, contracts }) {
     };
     if (typeof user.selectedToken !== 'undefined') {
       init();
-      console.log(user);
     }
   }, [account.data]);
 
   useEffect(
     () => {
-      const init = async () => {
-        const [balances, orders] = await Promise.all([
+      let init = async () => {
+        let [balances, orders] = await Promise.all([
           getBalances(account.data, user.selectedToken),
           getOrders(user.selectedToken)
         ]);
