@@ -2,17 +2,21 @@ import { Hero } from '@components/ui/homepage';
 import Home from '@pages/index';
 import { useWeb3 } from '@components/providers';
 import { useAccount } from '@components/hooks/web3';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Web3Container() {
-  const [isReady, setIsReady] = useState(false);
   const { web3, contracts } = useWeb3();
   const { account } = useAccount();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    console.log(web3);
+    console.log(contracts);
+    console.log(account);
+
     setIsReady(
-      typeof web3 !== null &&
-        typeof contracts !== null &&
+      web3 !== null &&
+        contracts !== null &&
         account.data !== undefined &&
         account.data !== null
     );
@@ -21,11 +25,6 @@ export default function Web3Container() {
   if (isReady === false) {
     return <Hero />;
   }
-  // return !isReady ? (
-  //   <Hero />
-  // ) : (
-  //   <Home web3={web3} contracts={contracts} account={account} />
-  // );
 
   return <Home web3={web3} contracts={contracts} account={account} />;
 }

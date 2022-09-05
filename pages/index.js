@@ -1,3 +1,5 @@
+import { useAccount } from '@components/hooks/web3';
+import { useWeb3 } from '@components/providers';
 import {
   AllOrders,
   AllTrades,
@@ -8,7 +10,7 @@ import {
   Transfer,
   Wallet
 } from '@components/ui/common';
-import { LoadingScreenSpinner } from '@components/ui/homepage';
+import { Hero, LoadingScreenSpinner } from '@components/ui/homepage';
 import MainLayout from '@components/ui/layout/main';
 import { useState, useEffect } from 'react';
 
@@ -17,7 +19,11 @@ const SIDE = {
   SELL: 1
 };
 
-export default function Home({ web3, contracts, account }) {
+// export default function Home({ web3, contracts, account }) {
+export default function Home() {
+  const { web3, contracts } = useWeb3();
+  const { account } = useAccount();
+
   const [tokens, setTokens] = useState([]);
   const [user, setUser] = useState({
     account: undefined,
@@ -124,6 +130,7 @@ export default function Home({ web3, contracts, account }) {
   };
 
   useEffect(() => {
+    console.log(account.data);
     const init = async () => {
       const rawTokens = await contracts.dex.methods.getTokens().call();
       const tokens = rawTokens.map((token) => ({
@@ -139,8 +146,8 @@ export default function Home({ web3, contracts, account }) {
       setUser({ account: account.data, balances, selectedToken: tokens[0] });
       setOrders(orders);
     };
-    init();
-  }, []);
+    web3 && contracts && account.data && init();
+  }, [web3, contracts, account.data]);
 
   useEffect(
     () => {
@@ -172,6 +179,10 @@ export default function Home({ web3, contracts, account }) {
       init();
     }
   }, [account.data]);
+
+  if (typeof account.data === 'undefined' || typeof account === null) {
+    return <Hero />;
+  }
 
   if (typeof user.selectedToken === 'undefined') {
     return <LoadingScreenSpinner />;
