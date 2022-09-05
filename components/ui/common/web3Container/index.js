@@ -9,23 +9,23 @@ export default function Web3Container() {
   const { web3, contracts } = useWeb3();
   const { account } = useAccount();
 
-  console.log(isReady);
-
   useEffect(() => {
     setIsReady(
       typeof web3 !== null &&
         typeof contracts !== null &&
-        account.data !== 'undefined'
+        account.data !== undefined &&
+        account.data !== null
     );
-  }, [web3, contracts, account]);
+  }, [web3, contracts, account.data, isReady]);
 
-  return (
-    <>
-      {isReady ? (
-        <Home web3={web3} contracts={contracts} account={account} />
-      ) : (
-        <Hero />
-      )}
-    </>
-  );
+  if (isReady === false) {
+    return <Hero />;
+  }
+  // return !isReady ? (
+  //   <Hero />
+  // ) : (
+  //   <Home web3={web3} contracts={contracts} account={account} />
+  // );
+
+  return <Home web3={web3} contracts={contracts} account={account} />;
 }

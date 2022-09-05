@@ -5,9 +5,10 @@ import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Navbar({ tokens, user, selectToken, account }) {
+export default function Navbar({ tokens, user, selectToken }) {
   const { connect, isLoading, requireInstall } = useWeb3();
   const { network } = useNetwork();
+  const { account } = useAccount();
 
   const refreshPage = () => {
     return window.location.reload();

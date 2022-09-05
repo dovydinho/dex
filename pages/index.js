@@ -1,5 +1,3 @@
-import { useAccount } from '@components/hooks/web3';
-import { useWeb3 } from '@components/providers';
 import {
   AllOrders,
   AllTrades,
@@ -19,14 +17,10 @@ const SIDE = {
   SELL: 1
 };
 
-export default function Home() {
-  // export default function Home({ web3, contracts, account }) {
-  const { web3, contracts } = useWeb3();
-  const { account } = useAccount();
-
+export default function Home({ web3, contracts, account }) {
   const [tokens, setTokens] = useState([]);
   const [user, setUser] = useState({
-    account: account,
+    account: undefined,
     balances: {
       tokenDex: 0,
       tokenWallet: 0
@@ -40,12 +34,12 @@ export default function Home() {
   const [trades, setTrades] = useState([]);
   const [listener, setListener] = useState(undefined);
 
-  const getBalances = async (_account, token) => {
+  const getBalances = async (accountAddress, token) => {
     const tokenDex = await contracts.dex.methods
-      .traderBalances(_account, web3.utils.fromAscii(token.ticker))
+      .traderBalances(accountAddress, web3.utils.fromAscii(token.ticker))
       .call();
     const tokenWallet = await contracts[token.ticker].methods
-      .balanceOf(_account)
+      .balanceOf(accountAddress)
       .call();
     return { tokenDex, tokenWallet };
   };
@@ -112,7 +106,7 @@ export default function Home() {
     const orders = await getOrders(user.selectedToken);
     setOrders(orders);
 
-    const balances = await getBalances(user.account.data, user.selectedToken);
+    const balances = await getBalances(user.account, user.selectedToken);
     setUser((user) => ({ ...user, balances }));
   };
 
@@ -130,47 +124,29 @@ export default function Home() {
   };
 
   useEffect(() => {
-    let rawTokens;
-    let tokens;
-    let balances;
-    let orders;
-
-    let init = async () => {
-      rawTokens = await contracts.dex.methods.getTokens().call();
-      tokens = rawTokens.map((token) => ({
+    const init = async () => {
+      const rawTokens = await contracts.dex.methods.getTokens().call();
+      const tokens = rawTokens.map((token) => ({
         ...token,
         ticker: web3.utils.hexToUtf8(token.ticker)
       }));
-      [balances, orders] = await Promise.all([
+      const [balances, orders] = await Promise.all([
         getBalances(account.data, tokens[0]),
         getOrders(tokens[0])
       ]);
+      listenToTrades(tokens[0]);
       setTokens(tokens);
-      setUser((user) => ({ ...user, balances, selectedToken: tokens[0] }));
+      setUser({ account: account.data, balances, selectedToken: tokens[0] });
       setOrders(orders);
     };
-    contracts && account.data && init();
-  }, [contracts, account.data]);
-
-  useEffect(() => {
-    let init = async () => {
-      let [balances, orders] = await Promise.all([
-        getBalances(account.data, user.selectedToken),
-        getOrders(user.selectedToken)
-      ]);
-      setUser((user) => ({ ...user, account, balances }));
-      setOrders(orders);
-    };
-    if (typeof user.selectedToken !== 'undefined') {
-      init();
-    }
-  }, [account.data]);
+    init();
+  }, []);
 
   useEffect(
     () => {
-      let init = async () => {
-        let [balances, orders] = await Promise.all([
-          getBalances(account.data, user.selectedToken),
+      const init = async () => {
+        const [balances, orders] = await Promise.all([
+          getBalances(user.account, user.selectedToken),
           getOrders(user.selectedToken)
         ]);
         listenToTrades(user.selectedToken);
@@ -187,18 +163,23 @@ export default function Home() {
     }
   );
 
+  useEffect(() => {
+    const init = async () => {
+      const balances = await getBalances(account.data, user.selectedToken);
+      setUser((user) => ({ ...user, account: account.data, balances }));
+    };
+    if (typeof user.selectedToken !== 'undefined') {
+      init();
+    }
+  }, [account.data]);
+
   if (typeof user.selectedToken === 'undefined') {
     return <LoadingScreenSpinner />;
   }
 
   return (
     <>
-      <Navbar
-        tokens={tokens}
-        user={user}
-        selectToken={selectToken}
-        account={account}
-      />
+      <Navbar tokens={tokens} user={user} selectToken={selectToken} />
 
       <div className="container p-2 md:p-0">
         <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
