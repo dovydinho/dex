@@ -78,8 +78,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -122,8 +121,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -136,8 +134,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -198,8 +195,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -212,8 +208,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -226,8 +221,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -7271,21 +7265,11 @@
   "ast": {
     "absolutePath": "project:/contracts/mocks/Mana.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Mana": [
-        1783
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Mana": [1783]
     },
     "id": 1784,
     "license": "GPL-3.0",
@@ -7293,15 +7277,7 @@
     "nodes": [
       {
         "id": 1758,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:8"
       },
@@ -7338,13 +7314,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1783,
-        "linearizedBaseContracts": [
-          1783,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [1783, 585, 688, 663, 710],
         "name": "Mana",
         "nameLocation": "142:4:8",
         "nodeType": "ContractDefinition",
@@ -7599,21 +7569,11 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/mocks/Mana.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Mana": [
-        1783
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Mana": [1783]
     },
     "id": 1784,
     "license": "GPL-3.0",
@@ -7621,15 +7581,7 @@
     "nodes": [
       {
         "id": 1758,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:8"
       },
@@ -7666,13 +7618,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1783,
-        "linearizedBaseContracts": [
-          1783,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [1783, 585, 688, 663, 710],
         "name": "Mana",
         "nameLocation": "142:4:8",
         "nodeType": "ContractDefinition",
@@ -7929,67 +7875,15 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {
-    "5777": {
-      "events": {
-        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "spender",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Approval",
-          "type": "event"
-        },
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "to",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Transfer",
-          "type": "event"
-        }
-      },
+    "3": {
+      "events": {},
       "links": {},
-      "address": "0x2B770eB67314ddd2a27e461Ffd19a2Da8E7712A4",
-      "transactionHash": "0x1e85265b58e800c90136fcf0b42f3b1a47261ccc79d56bfdc71be8cc077e3ec5"
+      "address": "0xEE5E25e11f5af24fD297302B6e502EF95C6620D1",
+      "transactionHash": "0x43bd8a3c53c192d678169afabd73702e2643128b376f321eac49bd02a4bde8ba"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-09-04T18:15:33.307Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-09-05T07:32:53.304Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

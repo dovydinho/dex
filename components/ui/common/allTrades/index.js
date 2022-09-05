@@ -13,8 +13,6 @@ export default function AllTrades({ trades, user, web3 }) {
   const [tradePrices, setTradePrices] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(trades);
-
   const state = {
     series: [
       {

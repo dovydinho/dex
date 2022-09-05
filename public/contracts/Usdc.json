@@ -78,8 +78,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -122,8 +121,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -136,8 +134,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -198,8 +195,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -212,8 +208,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -226,8 +221,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -7271,21 +7265,11 @@
   "ast": {
     "absolutePath": "project:/contracts/mocks/Usdc.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Usdc": [
-        1837
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Usdc": [1837]
     },
     "id": 1838,
     "license": "GPL-3.0",
@@ -7293,15 +7277,7 @@
     "nodes": [
       {
         "id": 1812,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:10"
       },
@@ -7338,13 +7314,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1837,
-        "linearizedBaseContracts": [
-          1837,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [1837, 585, 688, 663, 710],
         "name": "Usdc",
         "nameLocation": "142:4:10",
         "nodeType": "ContractDefinition",
@@ -7599,21 +7569,11 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/mocks/Usdc.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Usdc": [
-        1837
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Usdc": [1837]
     },
     "id": 1838,
     "license": "GPL-3.0",
@@ -7621,15 +7581,7 @@
     "nodes": [
       {
         "id": 1812,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:10"
       },
@@ -7666,13 +7618,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 1837,
-        "linearizedBaseContracts": [
-          1837,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [1837, 585, 688, 663, 710],
         "name": "Usdc",
         "nameLocation": "142:4:10",
         "nodeType": "ContractDefinition",
@@ -7929,67 +7875,15 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {
-    "5777": {
-      "events": {
-        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "spender",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Approval",
-          "type": "event"
-        },
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "from",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "to",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "value",
-              "type": "uint256"
-            }
-          ],
-          "name": "Transfer",
-          "type": "event"
-        }
-      },
+    "3": {
+      "events": {},
       "links": {},
-      "address": "0x7ff2D9317F058bf0c5467585511900Fb1D766d9A",
-      "transactionHash": "0xf50f3908a197cb02eff2f36530a8e511036e203e53bb04d046afa79f48e4920b"
+      "address": "0x5f2253f9bd891407e9Ee0aeCA36f2b346659eaA5",
+      "transactionHash": "0xc4616c7254fd4c7c1e52e38b2312a609d87e0683b14670b73c24b8c52a177ed9"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-09-04T18:15:33.294Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-09-05T07:32:53.313Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

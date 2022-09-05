@@ -1,4 +1,5 @@
 import { useAccount } from '@components/hooks/web3';
+import { useWeb3 } from '@components/providers';
 import {
   AllOrders,
   AllTrades,
@@ -18,7 +19,9 @@ const SIDE = {
   SELL: 1
 };
 
-export default function Home({ web3, contracts }) {
+export default function Home() {
+  // export default function Home({ web3, contracts, account }) {
+  const { web3, contracts } = useWeb3();
   const { account } = useAccount();
 
   const [tokens, setTokens] = useState([]);
@@ -127,13 +130,18 @@ export default function Home({ web3, contracts }) {
   };
 
   useEffect(() => {
+    let rawTokens;
+    let tokens;
+    let balances;
+    let orders;
+
     let init = async () => {
-      let rawTokens = await contracts.dex.methods.getTokens().call();
-      let tokens = rawTokens.map((token) => ({
+      rawTokens = await contracts.dex.methods.getTokens().call();
+      tokens = rawTokens.map((token) => ({
         ...token,
         ticker: web3.utils.hexToUtf8(token.ticker)
       }));
-      let [balances, orders] = await Promise.all([
+      [balances, orders] = await Promise.all([
         getBalances(account.data, tokens[0]),
         getOrders(tokens[0])
       ]);
@@ -141,8 +149,8 @@ export default function Home({ web3, contracts }) {
       setUser((user) => ({ ...user, balances, selectedToken: tokens[0] }));
       setOrders(orders);
     };
-    init();
-  }, []);
+    contracts && account.data && init();
+  }, [contracts, account.data]);
 
   useEffect(() => {
     let init = async () => {
@@ -185,7 +193,12 @@ export default function Home({ web3, contracts }) {
 
   return (
     <>
-      <Navbar tokens={tokens} user={user} selectToken={selectToken} />
+      <Navbar
+        tokens={tokens}
+        user={user}
+        selectToken={selectToken}
+        account={account}
+      />
 
       <div className="container p-2 md:p-0">
         <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">

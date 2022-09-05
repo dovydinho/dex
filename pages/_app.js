@@ -7,9 +7,9 @@ function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout ?? Noop;
   return (
     <Layout>
-      <Web3Container>
-        <Component {...pageProps} />
-      </Web3Container>
+      {/* <Web3Container> */}
+      <Component {...pageProps} />
+      {/* </Web3Container> */}
     </Layout>
   );
 }
