@@ -1,3 +1,4 @@
+const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Dex from '@contracts/Dex.json';
@@ -20,24 +21,29 @@ const getWeb3 = () =>
   });
 
 const getContracts = async (web3) => {
-  const networkId = await web3.eth.net.getId();
-  const deployedNetwork = Dex.networks[networkId];
+  const dex = null;
+  const tokens = [];
 
-  const dex = new web3.eth.Contract(
-    Dex.abi,
-    deployedNetwork && deployedNetwork.address
-  );
-  const tokens = await dex.methods.getTokens().call();
-  const tokenContracts = tokens.reduce(
-    (acc, token) => ({
-      ...acc,
-      [web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(
-        web3.utils.hexToUtf8(token.ticker) === 'USDC' ? USDC.abi : ERC20Abi,
-        token.tokenAddress
-      )
-    }),
-    {}
-  );
+  try {
+    dex = new web3.eth.Contract(Dex.abi, Dex.networks[NETWORK_ID].address);
+    tokens = dex && (await dex.methods.getTokens().call());
+  } catch {
+    console.log(`Contract cannot be loaded.`);
+  }
+
+  const tokenContracts =
+    tokens.length > 0 &&
+    tokens.reduce(
+      (acc, token) => ({
+        ...acc,
+        [web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(
+          web3.utils.hexToUtf8(token.ticker) === 'USDC' ? USDC.abi : ERC20Abi,
+          token.tokenAddress
+        )
+      }),
+      {}
+    );
+
   return { dex, ...tokenContracts };
 };
 
