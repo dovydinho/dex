@@ -35,7 +35,7 @@ export default function Wallet({ web3, user, account }) {
             {user.selectedToken !== undefined ? (
               user.selectedToken.ticker
             ) : (
-              <div class="bg-slate-600 rounded-lg h-10 w-24" />
+              <div className="bg-slate-600 rounded-lg h-10 w-24" />
             )}
           </h1>
 
@@ -46,7 +46,7 @@ export default function Wallet({ web3, user, account }) {
                 {user.selectedToken !== undefined ? (
                   Number(tokenWallet).toFixed(3)
                 ) : (
-                  <div class="bg-slate-600 rounded-lg h-6 w-16 mt-1" />
+                  <div className="bg-slate-600 rounded-lg h-6 w-16 mt-1" />
                 )}
               </h1>
             </div>
@@ -56,7 +56,7 @@ export default function Wallet({ web3, user, account }) {
                 {user.selectedToken !== undefined ? (
                   Number(tokenDex).toFixed(3)
                 ) : (
-                  <div class="bg-slate-600 rounded-lg h-6 w-16 mt-1" />
+                  <div className="bg-slate-600 rounded-lg h-6 w-16 mt-1" />
                 )}
               </h1>
             </div>
