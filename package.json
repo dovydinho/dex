@@ -13,7 +13,6 @@
     "@metamask/detect-provider": "^1.2.0",
     "@openzeppelin/contracts": "^4.7.2",
     "@openzeppelin/test-helpers": "^0.5.15",
-    "@prisma/client": "^4.3.1",
     "@tailwindcss/forms": "^0.5.2",
     "@truffle/hdwallet-provider": "^2.0.14",
     "apexcharts": "^3.35.5",
