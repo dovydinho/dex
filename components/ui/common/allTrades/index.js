@@ -107,15 +107,7 @@ export default function AllTrades({ trades, user, web3 }) {
     setTradePrices([]);
     setDisplayTrades([]);
     setLoading(true);
-  }, [user.selectedToken.ticker]);
-
-  // useEffect(() => {
-  //   setLoading(true);
-
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 1000);
-  // }, [user.account.data]);
+  }, [user.selectedToken]);
 
   useEffect(() => {
     setLoading(true);

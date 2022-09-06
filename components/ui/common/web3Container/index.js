@@ -10,10 +10,6 @@ export default function Web3Container() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    console.log(web3);
-    console.log(contracts);
-    console.log(account);
-
     setIsReady(
       web3 !== null &&
         contracts !== null &&
@@ -22,9 +18,9 @@ export default function Web3Container() {
     );
   }, [web3, contracts, account.data, isReady]);
 
-  if (isReady === false) {
-    return <Hero />;
-  }
+  // if (isReady === false) {
+  //   return <Hero />;
+  // }
 
   return <Home web3={web3} contracts={contracts} account={account} />;
 }
