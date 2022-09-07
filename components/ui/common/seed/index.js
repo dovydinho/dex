@@ -1,33 +1,29 @@
 import { Button } from '@components/ui/common';
-// import Router from 'next/router';
+import { useState } from 'react';
 
 export default function Seed({ web3, contracts, user, getBalances, setUser }) {
+  const [loading, setLoading] = useState(false);
   const amount = web3.utils.toWei('10');
 
   const onSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
-    seedTokenBalance(contracts.USDC, user.account.data);
+    seedTokenBalance(contracts.USDC, user.account);
   };
 
   const seedTokenBalance = async (token, trader) => {
-    await token.methods.faucet(trader, amount).send({
-      from: trader
-    });
+    try {
+      await token.methods.faucet(trader, amount).send({
+        from: trader
+      });
+      const balances = await getBalances(user.account, user.selectedToken);
+      setUser((user) => ({ ...user, balances }));
 
-    // await token.methods.approve(contracts.dex._address, amount).send({
-    //   from: trader
-    // });
-
-    // const ticker = await token.methods.symbol().call();
-
-    // await contracts.dex.methods
-    //   .deposit(amount, web3.utils.fromAscii(ticker))
-    //   .send({
-    //     from: trader
-    //   });
-
-    const balances = await getBalances(user.account.data, user.selectedToken);
-    setUser((user) => ({ ...user, balances }));
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log('Transaction failed.');
+    }
   };
 
   return (
@@ -37,12 +33,22 @@ export default function Seed({ web3, contracts, user, getBalances, setUser }) {
           <p className="text-4xl ">Seed USDC</p>
           <h1 className="text-6xl mb-6 ">for Testing</h1>
           <form id="transfer" onSubmit={(e) => onSubmit(e)}>
-            <Button
-              type="submit"
-              className="mx-auto text-2xl px-12 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-purple-500 hover:scale-110"
-            >
-              Get 10 USDC
-            </Button>
+            {!loading ? (
+              <Button
+                type="submit"
+                className="flex mx-auto text-2xl px-12 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-purple-500 hover:scale-110"
+              >
+                Get 10 USDC
+              </Button>
+            ) : (
+              <Button
+                className="flex mx-auto text-2xl px-12 py-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 border-purple-500 cursor-progress"
+                disabled
+              >
+                <div className="border-2 animate-spin w-8 h-8 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
+                In process
+              </Button>
+            )}
           </form>
         </div>
       </div>
