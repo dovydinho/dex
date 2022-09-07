@@ -1,37 +1,77 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@components/ui/common';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { useAccount } from '@components/hooks/web3';
 
 const DIRECTION = {
   WITHDRAW: 'WITHDRAW',
   DEPOSIT: 'DEPOSIT'
 };
-export default function Transfer({ deposit, withdraw, user, web3 }) {
+export default function Transfer({
+  contracts,
+  setUser,
+  user,
+  web3,
+  getBalances
+}) {
   const [direction, setDirection] = useState(DIRECTION.DEPOSIT);
   const [amount, setAmount] = useState(0);
-  const [userToken, setUserToken] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+  const { account } = useAccount();
 
-  useEffect(() => {
-    setUserToken(user.selectedToken);
-  }, [user.selectedToken, userToken]);
+  const deposit = async (amount) => {
+    try {
+      await contracts[user.selectedToken.ticker].methods
+        .approve(contracts.dex.options.address, amount)
+        .send({ from: account.data });
+      await contracts.dex.methods
+        .deposit(amount, web3.utils.fromAscii(user.selectedToken.ticker))
+        .send({ from: account.data });
+      const balances = await getBalances(account.data, user.selectedToken);
+      setUser((user) => ({ ...user, balances }));
+
+      setLoading(false);
+    } catch {
+      setLoading(false);
+    }
+  };
+
+  const withdraw = async (amount) => {
+    try {
+      await contracts.dex.methods
+        .withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))
+        .send({ from: account.data });
+      const balances = await getBalances(account.data, user.selectedToken);
+      setUser((user) => ({ ...user, balances }));
+
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log('Transaction failed.');
+    }
+  };
 
   const onSubmit = (e) => {
+    console.log(direction);
+    setLoading(true);
     e.preventDefault();
-    userToken !== undefined
-      ? direction === DIRECTION.DEPOSIT
-        ? deposit(amount)
-        : withdraw(amount)
-      : null;
+    direction === DIRECTION.DEPOSIT ? deposit(amount) : withdraw(amount);
   };
 
   return (
     <>
       <div
         className={`w-full sm:w-1/2 hover:-translate-y-1 hover:scale-105 hover:bg-indigo-500/[.25] duration-300 p-12 sm:p-6 md:p-12 bg-gray-100/[.05] border rounded-2xl ${
-          userToken !== undefined ? 'border-indigo-600' : 'border-orange-600'
+          user.selectedToken !== undefined
+            ? 'border-indigo-600'
+            : 'border-orange-600'
         }`}
       >
-        <div className={`${userToken === undefined ? 'animate-pulse' : null}`}>
+        <div
+          className={`${
+            user.selectedToken === undefined ? 'animate-pulse' : null
+          }`}
+        >
           {/* <h1 className="text-center text-xl md:text-2xl font-bold">Transfer</h1> */}
           <div className="flex justify-center items-center text-xl md:text-2xl font-bold mb-8">
             Wallet <SwitchHorizontalIcon className="pt-1 w-8 h-8" /> Exchange
@@ -65,7 +105,9 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
                     type="number"
                     className="form-input mt-2 block w-full rounded-xl text-gray-900"
                     placeholder={`${
-                      userToken !== undefined ? userToken.ticker : ''
+                      user.selectedToken !== undefined
+                        ? user.selectedToken.ticker
+                        : ''
                     }`}
                     onChange={(e) =>
                       e.target.value.length > 0 &&
@@ -75,7 +117,7 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
                 ) : null}
               </label>
 
-              {userToken !== undefined ? (
+              {!loading ? (
                 <Button
                   type="submit"
                   className="bg-indigo-600 hover:bg-indigo-800 w-full mt-4"
@@ -83,8 +125,12 @@ export default function Transfer({ deposit, withdraw, user, web3 }) {
                   Transfer
                 </Button>
               ) : (
-                <Button className="cursor-not-allowed w-full mt-4">
-                  Transfer
+                <Button
+                  className="flex justify-center cursor-not-allowed w-full mt-4"
+                  disabled
+                >
+                  <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
+                  In process
                 </Button>
               )}
             </form>

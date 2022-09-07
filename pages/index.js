@@ -25,7 +25,7 @@ const SIDE = {
 };
 
 export default function Home() {
-  const { web3, contracts } = useWeb3();
+  const { web3, contracts, requireInstall } = useWeb3();
   const { account } = useAccount();
   const { network } = useNetwork();
 
@@ -88,25 +88,6 @@ export default function Home() {
 
   const selectToken = (token) => {
     setUser({ ...user, selectedToken: token });
-  };
-
-  const deposit = async (amount) => {
-    await contracts[user.selectedToken.ticker].methods
-      .approve(contracts.dex.options.address, amount)
-      .send({ from: account.data });
-    await contracts.dex.methods
-      .deposit(amount, web3.utils.fromAscii(user.selectedToken.ticker))
-      .send({ from: account.data });
-    const balances = await getBalances(account.data, user.selectedToken);
-    setUser((user) => ({ ...user, balances }));
-  };
-
-  const withdraw = async (amount) => {
-    await contracts.dex.methods
-      .withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))
-      .send({ from: account.data });
-    const balances = await getBalances(account.data, user.selectedToken);
-    setUser((user) => ({ ...user, balances }));
   };
 
   const createMarketOrder = async (amount, side) => {
@@ -212,7 +193,11 @@ export default function Home() {
         {loading ? (
           <LoadingScreenSpinner />
         ) : network.isSupported === false ? (
-          <UnsupportedNetwork />
+          requireInstall ? (
+            <NotConnected />
+          ) : (
+            <UnsupportedNetwork />
+          )
         ) : (
           <>
             <NotConnected />
@@ -239,8 +224,9 @@ export default function Home() {
               {/* {account.data ? <Wallet user={user} web3={web3} /> : <EmptyWallet />} */}
 
               <Transfer
-                deposit={deposit}
-                withdraw={withdraw}
+                getBalances={getBalances}
+                setUser={setUser}
+                contracts={contracts}
                 user={user}
                 web3={web3}
               />
