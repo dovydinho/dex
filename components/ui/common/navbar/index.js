@@ -4,6 +4,7 @@ import { useAccount, useNetwork } from '@components/hooks/web3';
 import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import { NetworkError } from '@components/ui/homepage';
 
 export default function Navbar({ tokens, user, selectToken }) {
   const { connect, isLoading, requireInstall } = useWeb3();
@@ -16,7 +17,7 @@ export default function Navbar({ tokens, user, selectToken }) {
 
   return (
     <>
-      <nav className="pt-8 pb-4 font-medium text-white">
+      <nav className="pt-4 md:pt-8 pb-2 md:pb-4 font-medium text-white">
         <div className="flex flex-wrap justify-between items-center mx-auto px-8">
           <Link href="/">
             <a className="flex items-center gap-2">
@@ -98,21 +99,7 @@ export default function Navbar({ tokens, user, selectToken }) {
         )}
       </nav>
 
-      {requireInstall && (
-        <div className="animate-pulse w-96 rounded-lg mx-auto p-4 bg-purple-500 text-gray-100 text-center">
-          Cannot connect to network. Please install Metamask
-        </div>
-      )}
-
-      {network.hasInitialResponse && !network.isSupported && account.data && (
-        <div className="animate-pulse w-96 rounded-lg mx-auto p-4 bg-red-600 text-gray-100 text-center">
-          <div>Connected to wrong network</div>
-          <div>
-            Please connect to: {` `}
-            <span className="font-bold text-xl">{network.target}</span>
-          </div>
-        </div>
-      )}
+      <NetworkError />
     </>
   );
 }

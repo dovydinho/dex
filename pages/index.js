@@ -90,34 +90,6 @@ export default function Home() {
     setUser({ ...user, selectedToken: token });
   };
 
-  const createMarketOrder = async (amount, side) => {
-    await contracts.dex.methods
-      .createMarketOrder(
-        web3.utils.fromAscii(user.selectedToken.ticker),
-        amount,
-        side
-      )
-      .send({ from: account.data });
-    const orders = await getOrders(user.selectedToken);
-    setOrders(orders);
-
-    const balances = await getBalances(user.account, user.selectedToken);
-    setUser((user) => ({ ...user, balances }));
-  };
-
-  const createLimitOrder = async (amount, price, side) => {
-    await contracts.dex.methods
-      .createLimitOrder(
-        web3.utils.fromAscii(user.selectedToken.ticker),
-        amount,
-        price,
-        side
-      )
-      .send({ from: account.data });
-    let orders = await getOrders(user.selectedToken);
-    setOrders(orders);
-  };
-
   const refreshPage = () => {
     return window.location.reload();
   };
@@ -193,7 +165,7 @@ export default function Home() {
         {loading ? (
           <LoadingScreenSpinner />
         ) : network.isSupported === false ? (
-          requireInstall ? (
+          requireInstall === true ? (
             <NotConnected />
           ) : (
             <UnsupportedNetwork />
@@ -221,7 +193,6 @@ export default function Home() {
           <div className="container p-2 md:p-0">
             <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
               <Wallet web3={web3} user={user} account={account} />
-              {/* {account.data ? <Wallet user={user} web3={web3} /> : <EmptyWallet />} */}
 
               <Transfer
                 getBalances={getBalances}
@@ -237,11 +208,11 @@ export default function Home() {
               <>
                 <div className="lg:w-3/4 mx-auto mt-8">
                   <Seed
+                    getBalances={getBalances}
+                    setUser={setUser}
                     web3={web3}
                     contracts={contracts}
                     user={user}
-                    getBalances={getBalances}
-                    setUser={setUser}
                   />
                 </div>
               </>
@@ -256,10 +227,12 @@ export default function Home() {
                   <div className="w-full lg:w-1/3 pt-8 lg:pt-0">
                     {user.selectedToken !== undefined && (
                       <NewOrder
-                        createMarketOrder={createMarketOrder}
-                        createLimitOrder={createLimitOrder}
-                        tokenTicker={user.selectedToken.ticker}
+                        getBalances={getBalances}
+                        getOrders={getOrders}
+                        setOrders={setOrders}
                         web3={web3}
+                        contracts={contracts}
+                        user={user}
                       />
                     )}
                   </div>

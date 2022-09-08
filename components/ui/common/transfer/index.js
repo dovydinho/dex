@@ -52,7 +52,6 @@ export default function Transfer({
   };
 
   const onSubmit = (e) => {
-    console.log(direction);
     setLoading(true);
     e.preventDefault();
     direction === DIRECTION.DEPOSIT ? deposit(amount) : withdraw(amount);
@@ -103,6 +102,7 @@ export default function Transfer({
                 {web3 ? (
                   <input
                     type="number"
+                    step="any"
                     className="form-input mt-2 block w-full rounded-xl text-gray-900"
                     placeholder={`${
                       user.selectedToken !== undefined
@@ -126,7 +126,7 @@ export default function Transfer({
                 </Button>
               ) : (
                 <Button
-                  className="flex justify-center cursor-not-allowed w-full mt-4"
+                  className="flex justify-center cursor-progress w-full mt-4"
                   disabled
                 >
                   <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />

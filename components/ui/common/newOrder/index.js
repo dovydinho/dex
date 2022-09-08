@@ -1,5 +1,6 @@
+import { useAccount } from '@components/hooks/web3';
 import { Button } from '@components/ui/common';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const TYPE = {
   LIMIT: 'LIMIT',
@@ -12,11 +13,15 @@ const SIDE = {
 };
 
 export default function NewOrder({
-  createMarketOrder,
-  createLimitOrder,
-  tokenTicker,
-  web3
+  getBalances,
+  getOrders,
+  setOrders,
+  web3,
+  contracts,
+  user
 }) {
+  const [loading, setLoading] = useState(false);
+  const { account } = useAccount();
   const [order, setOrder] = useState({
     type: TYPE.LIMIT,
     side: SIDE.BUY,
@@ -24,7 +29,51 @@ export default function NewOrder({
     price: 0
   });
 
+  const createMarketOrder = async (amount, side) => {
+    try {
+      await contracts.dex.methods
+        .createMarketOrder(
+          web3.utils.fromAscii(user.selectedToken.ticker),
+          amount,
+          side
+        )
+        .send({ from: account.data });
+
+      const orders = await getOrders(user.selectedToken);
+      setOrders(orders);
+
+      const balances = await getBalances(user.account, user.selectedToken);
+      setUser((user) => ({ ...user, balances }));
+
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log('Transaction failed.');
+    }
+  };
+
+  const createLimitOrder = async (amount, price, side) => {
+    try {
+      await contracts.dex.methods
+        .createLimitOrder(
+          web3.utils.fromAscii(user.selectedToken.ticker),
+          amount,
+          price,
+          side
+        )
+        .send({ from: account.data });
+      let orders = await getOrders(user.selectedToken);
+      setOrders(orders);
+
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log('Transaction failed.');
+    }
+  };
+
   const onSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     if (order.type === TYPE.MARKET) {
       createMarketOrder(web3.utils.toWei(order.amount), order.side);
@@ -102,9 +151,10 @@ export default function NewOrder({
         <label className="block mt-4">
           <span>Amount</span>
           <input
+            type="number"
             name="amount"
             className="form-input mt-2 block w-full rounded-xl text-gray-900"
-            placeholder={tokenTicker}
+            placeholder={user.selectedToken.ticker}
             onChange={(e) =>
               e.target.value.length > 0 &&
               setOrder((order) => ({
@@ -119,6 +169,8 @@ export default function NewOrder({
           <label className="block mt-4">
             <span>Price</span>
             <input
+              type="number"
+              step="any"
               name="price"
               className="form-input mt-2 block w-full rounded-xl text-gray-900"
               placeholder="USDC"
@@ -132,12 +184,23 @@ export default function NewOrder({
             />
           </label>
         )}
-        <Button
-          type="submit"
-          className={'bg-indigo-600 hover:bg-indigo-800 w-full mt-4'}
-        >
-          Submit Order
-        </Button>
+
+        {!loading ? (
+          <Button
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-800 w-full mt-4"
+          >
+            Submit Order
+          </Button>
+        ) : (
+          <Button
+            className="flex justify-center cursor-progress w-full mt-4"
+            disabled
+          >
+            <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
+            In process
+          </Button>
+        )}
       </form>
     </div>
   );
