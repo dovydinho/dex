@@ -151,6 +151,7 @@ export default function NewOrder({
         <label className="block mt-4">
           <span>Amount</span>
           <input
+            required
             type="number"
             name="amount"
             className="form-input mt-2 block w-full rounded-xl text-gray-900"
@@ -169,6 +170,7 @@ export default function NewOrder({
           <label className="block mt-4">
             <span>Price</span>
             <input
+              required
               type="number"
               step="any"
               name="price"

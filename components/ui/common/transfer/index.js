@@ -71,7 +71,6 @@ export default function Transfer({
             user.selectedToken === undefined ? 'animate-pulse' : null
           }`}
         >
-          {/* <h1 className="text-center text-xl md:text-2xl font-bold">Transfer</h1> */}
           <div className="flex justify-center items-center text-xl md:text-2xl font-bold mb-8">
             Wallet <SwitchHorizontalIcon className="pt-1 w-8 h-8" /> Exchange
           </div>
@@ -101,6 +100,7 @@ export default function Transfer({
                 <span>Amount</span>
                 {web3 ? (
                   <input
+                    required
                     type="number"
                     step="any"
                     className="form-input mt-2 block w-full rounded-xl text-gray-900"
