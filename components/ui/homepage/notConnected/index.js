@@ -85,7 +85,7 @@ export default function NotConnected() {
             </div>
             <div className="flex w-full sm:w-1/2">
               <div className="w-full items-center m-auto">
-                <div class="grid grid-cols-2 gap-4 justify-items-center">
+                <div className="grid grid-cols-2 gap-4 justify-items-center">
                   <div className="w-full text-center cursor-default hover:scale-105 border-2 border-purple-400 rounded-3xl p-4 bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 duration-300">
                     <Image
                       src="https://assets.coingecko.com/coins/images/13397/small/Graph_Token.png"
