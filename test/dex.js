@@ -242,7 +242,7 @@ contract('Dex', (accounts) => {
     );
   });
 
-  it('should NOT create market order if usdc balance too low', async () => {
+  it('should NOT create market order if USDC balance too low', async () => {
     await dex.deposit(web3.utils.toWei('100'), GRT, { from: trader1 });
 
     await dex.createLimitOrder(GRT, web3.utils.toWei('100'), 10, SIDE.SELL, {
