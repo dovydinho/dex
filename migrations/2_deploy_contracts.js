@@ -37,7 +37,7 @@ module.exports = async function (deployer, _network, accounts) {
     dex.addToken(SAND, sand.address)
   ]);
 
-  const amount = web3.utils.toWei('5000');
+  const amount = web3.utils.toWei('50000');
   const seedTokenBalance = async (token, trader) => {
     await token.faucet(trader, amount);
     await token.approve(dex.address, amount, { from: trader });

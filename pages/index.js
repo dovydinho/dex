@@ -192,7 +192,7 @@ export default function Home() {
           )}
           <div className="container p-2 md:p-0">
             <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
-              <Wallet web3={web3} user={user} account={account} />
+              <Wallet web3={web3} user={user} />
 
               <Transfer
                 getBalances={getBalances}
@@ -230,6 +230,7 @@ export default function Home() {
                         getBalances={getBalances}
                         getOrders={getOrders}
                         setOrders={setOrders}
+                        setUser={setUser}
                         web3={web3}
                         contracts={contracts}
                         user={user}

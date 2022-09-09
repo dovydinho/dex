@@ -28,7 +28,7 @@ const getContracts = async (web3) => {
     dex = new web3.eth.Contract(Dex.abi, Dex.networks[NETWORK_ID].address);
     tokens = dex && (await dex.methods.getTokens().call());
   } catch {
-    console.log(`Contract cannot be loaded.`);
+    console.log(`Contracts cannot be loaded.`);
   }
 
   const tokenContracts =

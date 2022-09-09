@@ -7,7 +7,7 @@ export default function MyOrders({ contracts, orders, user, web3 }) {
     e.preventDefault();
     await contracts.dex.methods
       .deleteOrder(_ticker, _side, _id)
-      .send({ from: user.account.data });
+      .send({ from: user.account });
   };
   const renderList = (orders, side) => {
     return (
@@ -62,17 +62,19 @@ export default function MyOrders({ contracts, orders, user, web3 }) {
                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {web3.utils.fromWei(web3.utils.toBN(order.price), 'kwei')}
                     </td>
-                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex">
-                      <Moment fromNow>{parseInt(order.date) * 1000}</Moment>
-                      <form
-                        onSubmit={(e) =>
-                          cancelOrder(e, order.ticker, order.side, order.id)
-                        }
-                      >
-                        <button type="submit">
-                          <XCircleIcon className="ml-4 text-red-500 w-6 h-6 hover:cursor-pointer hover:scale-125 duration-300" />
-                        </button>
-                      </form>
+                    <td className="text-sm text-gray-900 font-light px-6 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <Moment fromNow>{parseInt(order.date) * 1000}</Moment>
+                        <form
+                          onSubmit={(e) =>
+                            cancelOrder(e, order.ticker, order.side, order.id)
+                          }
+                        >
+                          <button className="ml-4" type="submit">
+                            <XCircleIcon className="text-red-500 w-7 h-7 hover:cursor-pointer hover:scale-125 duration-300" />
+                          </button>
+                        </form>
+                      </div>
                     </td>
                   </tr>
                 ))}

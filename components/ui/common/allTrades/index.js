@@ -103,13 +103,16 @@ export default function AllTrades({ trades, user, web3 }) {
     }
   };
 
+  // useEffect(() => {
+  //   setTradePrices([]);
+  //   setDisplayTrades([]);
+  //   setLoading(true);
+  // }, [user.selectedToken, trades]);
+
   useEffect(() => {
     setTradePrices([]);
     setDisplayTrades([]);
-    setLoading(true);
-  }, [user.selectedToken]);
 
-  useEffect(() => {
     setLoading(true);
 
     trades.map((trade) => {
@@ -145,7 +148,7 @@ export default function AllTrades({ trades, user, web3 }) {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [trades]);
+  }, [user.selectedToken, trades]);
 
   const addSlice = () => {
     setTimeout(() => {
@@ -178,7 +181,7 @@ export default function AllTrades({ trades, user, web3 }) {
 
   return (
     <>
-      <div className="w-full hover:bg-indigo-500/[.25] duration-300 p-12 sm:p-6 md:p-12 bg-gray-100/[.05] border rounded-2xl border-indigo-600">
+      <div className="w-full hover:bg-indigo-500/[.25] duration-300 sm:p-6 md:p-12 bg-gray-100/[.05] border rounded-2xl border-indigo-600">
         <h2 className="text-center text-xl md:text-2xl font-bold mb-8">
           All Trades
         </h2>

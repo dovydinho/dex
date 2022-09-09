@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 
-export default function Wallet({ web3, user, account }) {
+export default function Wallet({ web3, user }) {
   const [tokenWallet, setTokenWallet] = useState(0);
   const [tokenDex, setTokenDex] = useState(0);
   useEffect(() => {
     web3 &&
-      user.balances.tokenWallet &&
-      account.data !== null &&
+      user.balances.tokenWallet >= 0 &&
       setTokenWallet(web3.utils.fromWei(user.balances.tokenWallet, 'ether'));
     web3 &&
-      user.balances.tokenDex &&
-      account.data !== null &&
+      user.balances.tokenDex >= 0 &&
       setTokenDex(web3.utils.fromWei(user.balances.tokenDex, 'ether'));
-  }, [user, account]);
+  }, [web3, user]);
 
   return (
     <>

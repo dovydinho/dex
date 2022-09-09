@@ -102,7 +102,7 @@ export default function Transfer({
                   <input
                     required
                     type="number"
-                    step="any"
+                    step="0.001"
                     className="form-input mt-2 block w-full rounded-xl text-gray-900"
                     placeholder={`${
                       user.selectedToken !== undefined

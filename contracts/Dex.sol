@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
 
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -99,6 +99,12 @@ contract Dex {
             block.timestamp
         ));
 
+        if(side == Side.SELL) {
+            traderBalances[msg.sender][ticker] -= amount;
+        } else {
+            traderBalances[msg.sender][USDC] -= amount * price / 1000;
+        }
+
         uint i = orders.length > 0 ? orders.length - 1 : 0;
         while(i > 0) {
             if(side == Side.BUY && orders[i - 1].price > orders[i].price) {
@@ -133,13 +139,11 @@ contract Dex {
                 traderBalances[msg.sender][ticker] -= matched;
                 traderBalances[msg.sender][USDC] += matched * orders[i].price / 1000;
                 traderBalances[orders[i].trader][ticker] += matched;
-                traderBalances[orders[i].trader][USDC] -= matched * orders[i].price / 1000;
             }
             if(side == Side.BUY) {
                 require(traderBalances[msg.sender][USDC] >= matched * orders[i].price / 1000, 'usdc balance too low');
                 traderBalances[msg.sender][ticker] += matched;
                 traderBalances[msg.sender][USDC] -= matched * orders[i].price / 1000;
-                traderBalances[orders[i].trader][ticker] -= matched;
                 traderBalances[orders[i].trader][USDC] += matched * orders[i].price / 1000;
             }
             nextTradeId++;
@@ -161,6 +165,13 @@ contract Dex {
 
         for (uint i = 0; i < orders.length; i++) {
             if (orders[i].id == _id && orders[i].trader == msg.sender) {
+                
+                if(orders[i].side == Side.BUY) {
+                    traderBalances[msg.sender][USDC] += orders[i].amount * orders[i].price / 1000;
+                } else {
+                    traderBalances[msg.sender][_ticker] += orders[i].amount;
+                }
+
                 orders[i].amount = 0;
 
                 deleteAmountZero(

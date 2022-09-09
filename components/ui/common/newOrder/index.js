@@ -16,6 +16,7 @@ export default function NewOrder({
   getBalances,
   getOrders,
   setOrders,
+  setUser,
   web3,
   contracts,
   user
@@ -64,6 +65,9 @@ export default function NewOrder({
         .send({ from: account.data });
       let orders = await getOrders(user.selectedToken);
       setOrders(orders);
+
+      const balances = await getBalances(user.account, user.selectedToken);
+      setUser((user) => ({ ...user, balances }));
 
       setLoading(false);
     } catch (e) {
@@ -153,6 +157,7 @@ export default function NewOrder({
           <input
             required
             type="number"
+            step="1"
             name="amount"
             className="form-input mt-2 block w-full rounded-xl text-gray-900"
             placeholder={user.selectedToken.ticker}
@@ -172,7 +177,7 @@ export default function NewOrder({
             <input
               required
               type="number"
-              step="any"
+              step="0.001"
               name="price"
               className="form-input mt-2 block w-full rounded-xl text-gray-900"
               placeholder="USDC"
