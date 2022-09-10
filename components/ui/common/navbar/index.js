@@ -1,6 +1,6 @@
 import { Button, Dropdown } from '@components/ui/common';
 import { useWeb3 } from '@components/providers';
-import { useAccount, useNetwork } from '@components/hooks/web3';
+import { useAccount } from '@components/hooks/web3';
 import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,6 @@ import { NetworkError } from '@components/ui/homepage';
 
 export default function Navbar({ tokens, user, selectToken }) {
   const { connect, isLoading, requireInstall } = useWeb3();
-  const { network } = useNetwork();
   const { account } = useAccount();
 
   const refreshPage = () => {
