@@ -1,5 +1,4 @@
 import { Web3Provider } from '@components/providers';
-import Link from 'next/link';
 
 export default function MainLayout({ children }) {
   return (
