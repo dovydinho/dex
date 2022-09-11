@@ -8,10 +8,15 @@ export default function AllTrades({ trades, user, web3 }) {
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const [displayTrades, setDisplayTrades] = useState([]);
   const [slice, setSlice] = useState(10);
+  const [tradesRange, setTradesRange] = useState(undefined);
   const [hasMore, setHasMore] = useState(true);
 
   const [tradePrices, setTradePrices] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    trades.length > 5 ? setTradesRange(4) : undefined;
+  }, [trades.length]);
 
   const state = {
     series: [
@@ -22,13 +27,12 @@ export default function AllTrades({ trades, user, web3 }) {
     ],
     options: {
       chart: {
-        height: 600,
         type: 'line',
         stacked: false,
         zoom: {
           enabled: false
         },
-        background: '#1f2937',
+        background: 'rgba(0,0,0,.25)',
         stroke: {
           curve: 'smooth'
         }
@@ -50,6 +54,9 @@ export default function AllTrades({ trades, user, web3 }) {
           lines: {
             show: true
           }
+        },
+        padding: {
+          bottom: 10
         }
       },
       markers: {
@@ -57,6 +64,7 @@ export default function AllTrades({ trades, user, web3 }) {
         size: 3
       },
       xaxis: {
+        range: tradesRange,
         labels: {
           style: {
             colors: '#fff'
@@ -65,6 +73,14 @@ export default function AllTrades({ trades, user, web3 }) {
         axisBorder: {
           show: true,
           color: '#fff'
+        },
+        title: {
+          text: 'Trade #',
+          style: {
+            color: '#fff',
+            fontWeight: 'light',
+            cssClass: 'text-sm'
+          }
         },
         tooltip: {
           enabled: false
@@ -89,10 +105,7 @@ export default function AllTrades({ trades, user, web3 }) {
       tooltip: {
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
           return (
-            '<div className="px-4 py-2">Trade #' +
-            '<span>' +
-            w.globals.labels[dataPointIndex] +
-            ' fulfilled at ' +
+            '<div className="px-4 py-2">Trade fulfilled at ' +
             series[seriesIndex][dataPointIndex] +
             ' USDC per </span>' +
             user.selectedToken.ticker +
@@ -102,12 +115,6 @@ export default function AllTrades({ trades, user, web3 }) {
       }
     }
   };
-
-  // useEffect(() => {
-  //   setTradePrices([]);
-  //   setDisplayTrades([]);
-  //   setLoading(true);
-  // }, [user.selectedToken, trades]);
 
   useEffect(() => {
     setTradePrices([]);
@@ -195,7 +202,7 @@ export default function AllTrades({ trades, user, web3 }) {
                   <Chart
                     options={state.options}
                     series={state.series}
-                    height={400}
+                    height={450}
                   />
                 </div>
                 <div className="max-h-[400px] overflow-auto" id="scrollableDiv">
