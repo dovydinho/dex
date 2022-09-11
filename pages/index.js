@@ -160,23 +160,7 @@ export default function Home() {
   }, [user.account, network.isSupported]);
 
   if (typeof user.selectedToken === 'undefined') {
-    return (
-      <>
-        {loading ? (
-          <LoadingScreenSpinner />
-        ) : network.isSupported === false ? (
-          requireInstall === true ? (
-            <NotConnected />
-          ) : (
-            <UnsupportedNetwork />
-          )
-        ) : (
-          <>
-            <NotConnected />
-          </>
-        )}
-      </>
-    );
+    return <>{loading ? <LoadingScreenSpinner /> : <NotConnected />}</>;
   }
 
   return (
@@ -221,7 +205,11 @@ export default function Home() {
                 <div className="lg:flex lg:gap-8 mb-8">
                   <div className="w-full lg:w-2/3">
                     {web3 && trades && user.selectedToken !== undefined && (
-                      <AllTrades trades={trades} user={user} web3={web3} />
+                      <AllTrades
+                        trades={trades.reverse()}
+                        user={user}
+                        web3={web3}
+                      />
                     )}
                   </div>
                   <div className="w-full lg:w-1/3 pt-8 lg:pt-0">
