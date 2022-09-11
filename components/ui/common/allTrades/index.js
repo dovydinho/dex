@@ -122,7 +122,7 @@ export default function AllTrades({ trades, user, web3 }) {
 
     setLoading(true);
 
-    trades.map((trade) => {
+    trades.reverse().map((trade) => {
       setTradePrices((tradePrices) => [
         ...tradePrices,
         web3.utils.fromWei(trade.price, 'kwei')
