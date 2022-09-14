@@ -11,11 +11,7 @@ import {
   Transfer,
   Wallet
 } from '@components/ui/common';
-import {
-  LoadingScreenSpinner,
-  NotConnected,
-  UnsupportedNetwork
-} from '@components/ui/homepage';
+import { LoadingScreenSpinner, NotConnected } from '@components/ui/homepage';
 import MainLayout from '@components/ui/layout/main';
 import { useState, useEffect } from 'react';
 
@@ -157,7 +153,7 @@ export default function Home() {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [user.account, network.isSupported]);
+  }, [user.account, network.isSupported, user.selectedToken]);
 
   if (typeof user.selectedToken === 'undefined') {
     return <>{loading ? <LoadingScreenSpinner /> : <NotConnected />}</>;
@@ -165,104 +161,103 @@ export default function Home() {
 
   return (
     <>
-      {loading ? (
-        <LoadingScreenSpinner />
+      {tokens && user.selectedToken !== undefined ? (
+        <Navbar tokens={tokens} user={user} selectToken={selectToken} />
       ) : (
-        <>
-          {tokens && user.selectedToken !== undefined ? (
-            <Navbar tokens={tokens} user={user} selectToken={selectToken} />
-          ) : (
-            <Navbar />
-          )}
-          <div className="container p-2 md:p-0">
-            <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
-              <Wallet web3={web3} user={user} />
+        <Navbar />
+      )}
 
-              <Transfer
-                getBalances={getBalances}
-                setUser={setUser}
-                contracts={contracts}
-                user={user}
-                web3={web3}
-              />
-            </div>
+      {loading ? (
+        <LoadingSpinner heightClass={'h-[50vh]'} />
+      ) : (
+        <div className="container p-2 md:p-0">
+          <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
+            <Wallet web3={web3} user={user} />
 
-            {user.selectedToken !== undefined &&
-            user.selectedToken.ticker === 'USDC' ? (
-              <>
-                <div className="lg:w-3/4 mx-auto mt-8">
-                  <Seed
-                    getBalances={getBalances}
-                    setUser={setUser}
-                    web3={web3}
-                    contracts={contracts}
-                    user={user}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="lg:flex lg:gap-8 mb-8">
-                  <div className="w-full lg:w-2/3">
-                    {web3 && trades && user.selectedToken !== undefined && (
-                      <AllTrades
-                        trades={trades.reverse()}
-                        user={user}
-                        web3={web3}
-                      />
-                    )}
-                  </div>
-                  <div className="w-full lg:w-1/3 pt-8 lg:pt-0">
-                    {user.selectedToken !== undefined && (
-                      <NewOrder
-                        getBalances={getBalances}
-                        getOrders={getOrders}
-                        setOrders={setOrders}
-                        setUser={setUser}
-                        web3={web3}
-                        contracts={contracts}
-                        user={user}
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className="lg:w-full lg:flex lg:gap-8">
-                  <div className="w-full lg:w-1/2">
-                    {web3 && orders && user.selectedToken !== undefined && (
-                      <AllOrders orders={orders} user={user} web3={web3} />
-                    )}
-                  </div>
-                  <div className="w-full lg:w-1/2 pt-8 lg:pt-0">
-                    {web3 &&
-                      orders &&
-                      user.selectedToken !== undefined &&
-                      account !== undefined &&
-                      account !== null && (
-                        <MyOrders
-                          contracts={contracts}
-                          orders={{
-                            buy: orders.buy.filter(
-                              (order) =>
-                                order.trader.toLowerCase() ===
-                                user.account.toLowerCase()
-                            ),
-                            sell: orders.sell.filter(
-                              (order) =>
-                                order.trader.toLowerCase() ===
-                                user.account.toLowerCase()
-                            )
-                          }}
-                          user={user}
-                          web3={web3}
-                        />
-                      )}
-                  </div>
-                </div>
-              </>
-            )}
+            <Transfer
+              getBalances={getBalances}
+              setUser={setUser}
+              contracts={contracts}
+              user={user}
+              web3={web3}
+            />
           </div>
-        </>
+
+          {user.selectedToken !== undefined &&
+          user.selectedToken.ticker === 'USDC' ? (
+            <>
+              <div className="lg:w-3/4 mx-auto mt-8">
+                <Seed
+                  getBalances={getBalances}
+                  setUser={setUser}
+                  web3={web3}
+                  contracts={contracts}
+                  user={user}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="lg:flex lg:gap-8 mb-8">
+                <div className="w-full lg:w-2/3">
+                  {web3 && trades && user.selectedToken !== undefined && (
+                    <AllTrades
+                      trades={trades.reverse()}
+                      user={user}
+                      web3={web3}
+                    />
+                  )}
+                </div>
+                <div className="w-full lg:w-1/3 pt-8 lg:pt-0">
+                  {user.selectedToken !== undefined && (
+                    <NewOrder
+                      getBalances={getBalances}
+                      getOrders={getOrders}
+                      setOrders={setOrders}
+                      setUser={setUser}
+                      web3={web3}
+                      contracts={contracts}
+                      user={user}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="lg:w-full lg:flex lg:gap-8">
+                <div className="w-full lg:w-1/2">
+                  {web3 && orders && user.selectedToken !== undefined && (
+                    <AllOrders orders={orders} user={user} web3={web3} />
+                  )}
+                </div>
+                <div className="w-full lg:w-1/2 pt-8 lg:pt-0">
+                  {web3 &&
+                    orders &&
+                    user.selectedToken !== undefined &&
+                    account !== undefined &&
+                    account !== null && (
+                      <MyOrders
+                        contracts={contracts}
+                        orders={{
+                          buy: orders.buy.filter(
+                            (order) =>
+                              order.trader.toLowerCase() ===
+                              user.account.toLowerCase()
+                          ),
+                          sell: orders.sell.filter(
+                            (order) =>
+                              order.trader.toLowerCase() ===
+                              user.account.toLowerCase()
+                          )
+                        }}
+                        user={user}
+                        web3={web3}
+                      />
+                    )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       )}
     </>
   );
