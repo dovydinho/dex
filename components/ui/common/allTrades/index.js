@@ -155,7 +155,7 @@ export default function AllTrades({ trades, user, web3 }) {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [user.selectedToken, trades]);
+  }, [user.selectedToken]);
 
   const addSlice = () => {
     setTimeout(() => {
