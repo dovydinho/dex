@@ -88,37 +88,104 @@ contract Dex {
             require(traderBalances[msg.sender][USDC] >= amount * price / 1000, 'usdc balance too low');
         }
         Order[] storage orders = orderBook[ticker][uint(side)];
-        orders.push(Order(
-            nextOrderId,
-            msg.sender,
-            side,
-            ticker,
-            amount,
-            0,
-            price,
-            block.timestamp
-        ));
 
-        if(side == Side.SELL) {
-            traderBalances[msg.sender][ticker] -= amount;
-        } else {
-            traderBalances[msg.sender][USDC] -= amount * price / 1000;
+        Order[] storage opositeOrders = orderBook[ticker][uint(side == Side.BUY ? Side.SELL : Side.BUY)];
+
+        uint remaining = amount;
+        uint tradesFulfilled = 0;
+        uint i = 0;
+
+        if(opositeOrders.length > 0) {
+            while(side == Side.SELL ? (opositeOrders[i].price >= price) : (opositeOrders[i].price <= price) && remaining > 0) {
+                if(opositeOrders[i].trader != msg.sender) {
+                    uint available = opositeOrders[i].amount - opositeOrders[i].filled;
+                    uint matched = (remaining > available) ? available : remaining;
+                    remaining -= matched;
+                    opositeOrders[i].filled += matched;
+                    emit NewTrade(nextTradeId, opositeOrders[i].id, ticker, opositeOrders[i].trader, msg.sender, matched, opositeOrders[i].price, block.timestamp);
+                    if(side == Side.SELL) {
+                        traderBalances[msg.sender][ticker] -= matched;
+                        traderBalances[msg.sender][USDC] += matched * opositeOrders[i].price / 1000;
+                        traderBalances[opositeOrders[i].trader][ticker] += matched;
+                    }
+                    if(side == Side.BUY) {
+                        require(traderBalances[msg.sender][USDC] >= matched * opositeOrders[i].price / 1000, 'usdc balance too low');
+                        traderBalances[msg.sender][ticker] += matched;
+                        traderBalances[msg.sender][USDC] -= matched * opositeOrders[i].price / 1000;
+                        traderBalances[opositeOrders[i].trader][USDC] += matched * opositeOrders[i].price / 1000;
+                    }
+
+                    if(opositeOrders[i].filled == opositeOrders[i].amount) {
+                        tradesFulfilled++;
+                    }
+
+                    nextTradeId++;
+                }
+                i++;
+                if(i >= opositeOrders.length) {break;}
+            }
         }
 
-        uint i = orders.length > 0 ? orders.length - 1 : 0;
-        while(i > 0) {
-            if(side == Side.BUY && orders[i - 1].price > orders[i].price) {
-                break;
-            }
-            if(side == Side.SELL && orders[i - 1].price < orders[i].price) {
-                break;
-            }
-            Order memory order = orders[i - 1];
-            orders[i - 1] = orders[i];
-            orders[i] = order;
-            i--;
+        if (tradesFulfilled > 0) {
+            do {
+                for (uint k = 0; k < opositeOrders.length; k++) {
+                    if(opositeOrders[k].filled == opositeOrders[k].amount) {
+                        for(uint j = k; j < opositeOrders.length - 1; j++ ) {
+                            opositeOrders[j] = opositeOrders[j + 1];
+                        }
+                        opositeOrders.pop();
+                        tradesFulfilled--;
+                    }
+                }
+            } while (tradesFulfilled > 0);
         }
-        nextOrderId++;
+
+        if(remaining > 0) {
+            bool priceExist = false;
+            i = 0;
+            while(i < orders.length) {
+                if(orders[i].price == price && orders[i].trader == msg.sender) {
+                    orders[i].amount += remaining;
+                    priceExist = true;
+                    break;
+                }
+                i++;
+            } 
+
+            if(!priceExist) {
+                orders.push(Order(
+                    nextOrderId,
+                    msg.sender,
+                    side,
+                    ticker,
+                    remaining,
+                    0,
+                    price,
+                    block.timestamp
+                ));
+
+                if(side == Side.SELL) {
+                    traderBalances[msg.sender][ticker] -= remaining;
+                } else {
+                    traderBalances[msg.sender][USDC] -= remaining * price / 1000;
+                }
+
+                uint k = orders.length > 0 ? orders.length - 1 : 0;
+                while(k > 0) {
+                    if(side == Side.BUY && orders[k - 1].price > orders[k].price) {
+                        break;
+                    }
+                    if(side == Side.SELL && orders[k - 1].price < orders[k].price) {
+                        break;
+                    }
+                    Order memory order = orders[k - 1];
+                    orders[k - 1] = orders[k];
+                    orders[k] = order;
+                    k--;
+                }
+                nextOrderId++;
+            }
+        }
     }
 
     function createMarketOrder(bytes32 ticker, uint amount, Side side) tokenExist(ticker) tokenIsNotUsdc(ticker) external {
@@ -126,8 +193,9 @@ contract Dex {
             require(traderBalances[msg.sender][ticker] >= amount, 'token balance too low');
         }
         Order[] storage orders = orderBook[ticker][uint(side == Side.BUY ? Side.SELL : Side.BUY)];
-        uint i;
         uint remaining = amount;
+        uint tradesFulfilled = 0;
+        uint i = 0;
 
         while(i < orders.length && remaining > 0) {
             uint available = orders[i].amount - orders[i].filled;
@@ -146,17 +214,25 @@ contract Dex {
                 traderBalances[msg.sender][USDC] -= matched * orders[i].price / 1000;
                 traderBalances[orders[i].trader][USDC] += matched * orders[i].price / 1000;
             }
+            if(orders[i].filled == orders[i].amount) {
+                tradesFulfilled++;
+            }
             nextTradeId++;
             i++;
         }
 
-        i = 0;
-        while(i < orders.length && orders[i].filled == orders[i].amount) {
-            for(uint j = i; j < orders.length - 1; j++) {
-                orders[j] = orders[j + 1];
-            }
-            orders.pop();
-            i++;
+        if (tradesFulfilled > 0) {
+            do {
+                for (uint k = 0; k < orders.length; k++) {
+                    if(orders[k].filled == orders[k].amount) {
+                        for(uint j = k; j < orders.length - 1; j++ ) {
+                            orders[j] = orders[j + 1];
+                        }
+                        orders.pop();
+                        tradesFulfilled--;
+                    }
+                }
+            } while (tradesFulfilled > 0);
         }
     }
 
@@ -174,16 +250,16 @@ contract Dex {
 
                 orders[i].amount = 0;
 
-                deleteAmountZero(
+                removeZeroAmountOrder(
                     orders[i].ticker,
-                    _side,
+                    orders[i].side,
                     i
                 );
             }
         }
     }
 
-    function deleteAmountZero(bytes32 _ticker, Side _side, uint _id) internal {
+    function removeZeroAmountOrder(bytes32 _ticker, Side _side, uint _id) internal {
         if (orderBook[_ticker][uint (_side)][_id].amount == 0) {
             uint lastElement = orderBook[_ticker][uint (_side)].length - 1;
 
@@ -192,7 +268,6 @@ contract Dex {
             orderBook[_ticker][uint (_side)].pop();
         }
     }
-
 
     modifier tokenIsNotUsdc(bytes32 ticker) {
         require(ticker != USDC, 'cannot trade USDC');
