@@ -11,3 +11,4 @@ export { default as NewOrder } from './newOrder';
 export { default as AllOrders } from './allOrders';
 export { default as MyOrders } from './myOrders';
 export { default as AllTrades } from './allTrades';
+export { default as AllTradesChart } from './allTradesChart';

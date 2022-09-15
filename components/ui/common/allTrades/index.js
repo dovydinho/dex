@@ -1,140 +1,32 @@
-import LoadingSpinner from '../loadingSpinner';
 import Moment from 'react-moment';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { LoadingSpinner } from '@components/ui/common';
 
 export default function AllTrades({ trades, user, web3 }) {
-  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const [displayTrades, setDisplayTrades] = useState([]);
   const [slice, setSlice] = useState(10);
-  const [tradesRange, setTradesRange] = useState(undefined);
   const [hasMore, setHasMore] = useState(true);
 
-  const [tradePrices, setTradePrices] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    trades.length > 5 ? setTradesRange(4) : undefined;
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
   }, [trades.length]);
 
-  const state = {
-    series: [
-      {
-        name: 'Price',
-        data: tradePrices
-      }
-    ],
-    options: {
-      chart: {
-        type: 'line',
-        stacked: false,
-        zoom: {
-          enabled: false
-        },
-        background: 'rgba(0,0,0,.25)',
-        stroke: {
-          curve: 'smooth'
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: 'smooth'
-      },
-      grid: {
-        borderColor: '#6b7280',
-        xaxis: {
-          lines: {
-            show: true
-          }
-        },
-        yaxis: {
-          lines: {
-            show: true
-          }
-        },
-        padding: {
-          bottom: 10
-        }
-      },
-      markers: {
-        colors: ['#9C27B0'],
-        size: 3
-      },
-      xaxis: {
-        range: tradesRange,
-        labels: {
-          style: {
-            colors: '#fff'
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: '#fff'
-        },
-        title: {
-          text: 'Trade #',
-          style: {
-            color: '#fff',
-            fontWeight: 'light',
-            cssClass: 'text-sm'
-          }
-        },
-        tooltip: {
-          enabled: false
-        }
-      },
-      yaxis: [
-        {
-          labels: {
-            formatter: function (value) {
-              return Number(value).toFixed(1) + ' USDC';
-            },
-            style: {
-              colors: '#fff'
-            }
-          },
-          axisBorder: {
-            show: true,
-            color: '#fff'
-          }
-        }
-      ],
-      tooltip: {
-        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          return (
-            '<div className="px-4 py-2">Trade fulfilled at ' +
-            series[seriesIndex][dataPointIndex] +
-            ' USDC per </span>' +
-            user.selectedToken.ticker +
-            '</div>'
-          );
-        }
-      }
-    }
-  };
-
   useEffect(() => {
-    setTradePrices([]);
     setDisplayTrades([]);
-
     setLoading(true);
-
-    trades.reverse().map((trade) => {
-      setTradePrices((tradePrices) => [
-        ...tradePrices,
-        web3.utils.fromWei(trade.price, 'kwei')
-      ]);
-    });
 
     setSlice(10);
 
     setDisplayTrades(
-      trades.slice(0, slice).map(function (trade, i) {
+      trades.slice(0, slice).map(function (trade) {
         return (
-          <tr className="bg-white border-b" key={i}>
+          <tr className="bg-white border-b" key={trade.tradeId}>
             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
               {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) /
                 100}
@@ -155,7 +47,7 @@ export default function AllTrades({ trades, user, web3 }) {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [user.selectedToken]);
+  }, []);
 
   const addSlice = () => {
     setTimeout(() => {
@@ -167,9 +59,9 @@ export default function AllTrades({ trades, user, web3 }) {
   };
 
   const nextSlice = () => {
-    return trades.slice(slice, slice + 3).map(function (trade, i) {
+    return trades.slice(slice, slice + 3).map(function (trade) {
       return (
-        <tr className="bg-white border-b" key={i}>
+        <tr className="bg-white border-b" key={trade.tradeId}>
           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
             {Math.round(web3.utils.fromWei(trade.amount, 'ether') * 100) / 100}
             {/* {trade.amount} */}
@@ -195,16 +87,9 @@ export default function AllTrades({ trades, user, web3 }) {
         {trades.length > 0 ? (
           <div className="mb-6">
             {loading === true ? (
-              <LoadingSpinner />
+              <LoadingSpinner additionalClass={'h-80'} />
             ) : (
               <>
-                <div id="chartContainer">
-                  <Chart
-                    options={state.options}
-                    series={state.series}
-                    height={450}
-                  />
-                </div>
                 <div className="max-h-[400px] overflow-auto" id="scrollableDiv">
                   <InfiniteScroll
                     dataLength={displayTrades.length}

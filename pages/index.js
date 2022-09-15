@@ -3,6 +3,7 @@ import { useWeb3 } from '@components/providers';
 import {
   AllOrders,
   AllTrades,
+  AllTradesChart,
   LoadingSpinner,
   MyOrders,
   Navbar,
@@ -168,7 +169,7 @@ export default function Home() {
       )}
 
       {loading ? (
-        <LoadingSpinner heightClass={'h-[50vh]'} />
+        <LoadingSpinner additionalClass={'h-[50vh]'} />
       ) : (
         <div className="container p-2 md:p-0">
           <div className="sm:flex lg:w-3/4 m-auto sm:gap-8 my-8">
@@ -201,11 +202,10 @@ export default function Home() {
               <div className="lg:flex lg:gap-8 mb-8">
                 <div className="w-full lg:w-2/3">
                   {web3 && trades && user.selectedToken !== undefined && (
-                    <AllTrades
-                      trades={trades.reverse()}
-                      user={user}
-                      web3={web3}
-                    />
+                    <>
+                      <AllTradesChart trades={trades} user={user} web3={web3} />
+                      <AllTrades trades={trades} user={user} web3={web3} />
+                    </>
                   )}
                 </div>
                 <div className="w-full lg:w-1/3 pt-8 lg:pt-0">

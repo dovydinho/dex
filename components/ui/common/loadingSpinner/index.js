@@ -1,7 +1,7 @@
-export default function LoadingSpinner({ heightClass }) {
+export default function LoadingSpinner({ additionalClass }) {
   return (
     <>
-      <div className={`flex ${heightClass}`}>
+      <div className={`flex ${additionalClass}`}>
         <div className="m-auto">
           <svg
             role="status"
