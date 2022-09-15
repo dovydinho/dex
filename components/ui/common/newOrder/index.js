@@ -158,6 +158,7 @@ export default function NewOrder({
             required
             type="number"
             step="1"
+            min="1"
             name="amount"
             className="form-input mt-2 block w-full rounded-xl text-gray-900"
             placeholder={user.selectedToken.ticker}
@@ -178,6 +179,7 @@ export default function NewOrder({
               required
               type="number"
               step="0.001"
+              min="0.001"
               name="price"
               className="form-input mt-2 block w-full rounded-xl text-gray-900"
               placeholder="USDC"
