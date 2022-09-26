@@ -26,7 +26,7 @@ const SIDE = {
 };
 
 export default function Home() {
-  const { web3, contracts, requireInstall } = useWeb3();
+  const { web3, contracts } = useWeb3();
   const { account } = useAccount();
   const { network } = useNetwork();
 
