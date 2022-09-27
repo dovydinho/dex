@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import '../styles/globals.css';
 
-const Noop = ({ children }) => <>{children}</>;
+const NoLayout = ({ children }) => <>{children}</>;
 
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout ?? Noop;
+  const Layout = Component.Layout ?? NoLayout;
 
   const meta = {
     title: 'DEX - Web3 Application Demo',
