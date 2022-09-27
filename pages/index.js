@@ -237,8 +237,8 @@ export default function Home() {
                   {web3 &&
                     orders &&
                     user.selectedToken !== undefined &&
-                    account !== undefined &&
-                    account !== null && (
+                    user.account !== undefined &&
+                    user.account !== null && (
                       <MyOrders
                         contracts={contracts}
                         orders={{
