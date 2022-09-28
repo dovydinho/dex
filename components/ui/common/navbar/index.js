@@ -1,14 +1,14 @@
-import { Button, Dropdown } from '@components/ui/common';
-import { useWeb3 } from '@components/providers';
-import { useAccount } from '@components/hooks/web3';
-import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
-import { NetworkError } from '@components/ui/homepage';
+import { Button } from '@components/ui/common';
+import { Dropdown } from '@components/ui/auth';
+import { NetworkError } from '@components/ui/noAuth';
+import { ArrowCircleDownIcon } from '@heroicons/react/outline';
+import { useWeb3 } from '@components/web3';
 
 export default function Navbar({ tokens, user, selectToken }) {
-  const { connect, isLoading, requireInstall } = useWeb3();
-  const { account } = useAccount();
+  const { connect, isLoading, requireInstall, hooks } = useWeb3();
+  const account = hooks.useAccount();
 
   const refreshPage = () => {
     return window.location.reload();

@@ -1,24 +1,23 @@
-import { useAccount, useNetwork } from '@components/hooks/web3';
-import { useWeb3 } from '@components/providers';
+import { useState, useEffect } from 'react';
+import { MainLayout } from '@components/ui/layouts';
+import {
+  Navbar,
+  Footer,
+  LoadingSpinner,
+  LoadingScreenSpinner
+} from '@components/ui/common';
 import {
   AllOrders,
   AllTrades,
   AllTradesChart,
-  LoadingSpinner,
   MyOrders,
-  Navbar,
   NewOrder,
   Seed,
   Transfer,
   Wallet
-} from '@components/ui/common';
-import {
-  Footer,
-  LoadingScreenSpinner,
-  NotConnected
-} from '@components/ui/homepage';
-import MainLayout from '@components/ui/layout/main';
-import { useState, useEffect } from 'react';
+} from '@components/ui/auth';
+import { NoAuthHomepage } from '@components/ui/noAuth';
+import { useWeb3 } from '@components/web3';
 
 const SIDE = {
   BUY: 0,
@@ -26,9 +25,9 @@ const SIDE = {
 };
 
 export default function Home() {
-  const { web3, contracts } = useWeb3();
-  const { account } = useAccount();
-  const { network } = useNetwork();
+  const { web3, contracts, hooks } = useWeb3();
+  const account = hooks.useAccount();
+  const network = hooks.useNetwork();
 
   const [tokens, setTokens] = useState([]);
   const [user, setUser] = useState({
@@ -161,7 +160,7 @@ export default function Home() {
   }, [user.account, network.isSupported, user.selectedToken]);
 
   if (typeof user.selectedToken === 'undefined') {
-    return <>{loading ? <LoadingScreenSpinner /> : <NotConnected />}</>;
+    return <>{loading ? <LoadingScreenSpinner /> : <NoAuthHomepage />}</>;
   }
 
   return (
