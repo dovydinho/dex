@@ -102,7 +102,7 @@ export default function NewOrder({
           <div className="flex justify-center items-center">
             <Button
               type="button"
-              className={`rounded-r-none w-1/2 ${
+              className={`rounded-r-none uppercase w-1/2 ${
                 order.type === TYPE.LIMIT ? 'bg-indigo-500' : ''
               }`}
               onClick={() =>
@@ -113,7 +113,7 @@ export default function NewOrder({
             </Button>
             <Button
               type="button"
-              className={`rounded-l-none w-1/2 ${
+              className={`rounded-l-none uppercase w-1/2 ${
                 order.type === TYPE.MARKET ? 'bg-indigo-500' : ''
               }`}
               onClick={() =>
@@ -128,7 +128,7 @@ export default function NewOrder({
           <div className="flex justify-center items-center">
             <Button
               type="button"
-              className={`rounded-r-none w-1/2 ${
+              className={`rounded-r-none uppercase w-1/2 ${
                 order.side === SIDE.BUY
                   ? 'bg-gradient-to-r from-indigo-700 to-pink-500'
                   : ''
@@ -141,7 +141,7 @@ export default function NewOrder({
             </Button>
             <Button
               type="button"
-              className={`rounded-l-none w-1/2 ${
+              className={`rounded-l-none uppercase w-1/2 ${
                 order.side === SIDE.SELL
                   ? 'bg-gradient-to-r from-pink-500 to-red-700'
                   : ''
@@ -199,13 +199,13 @@ export default function NewOrder({
         {!loading ? (
           <Button
             type="submit"
-            className="bg-indigo-600 hover:bg-indigo-800 w-full mt-4"
+            className="bg-indigo-600 hover:bg-indigo-800 w-full mt-4 uppercase"
           >
             Submit Order
           </Button>
         ) : (
           <Button
-            className="flex justify-center cursor-progress w-full mt-4"
+            className="flex justify-center cursor-progress w-full mt-4 uppercase"
             disabled
           >
             <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />

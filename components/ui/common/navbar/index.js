@@ -27,7 +27,7 @@ export default function Navbar({ tokens, user, selectToken }) {
                 className="rounded-full w-10 h-10"
                 alt=""
               />
-              <span className="self-center text-xl font-semibold whitespace-nowrap hidden md:block">
+              <span className="self-center text-2xl font-semibold whitespace-nowrap hidden md:block uppercase ">
                 Decentralized Exchange App
               </span>
             </a>

@@ -36,13 +36,13 @@ export default function Seed({ web3, contracts, user, getBalances, setUser }) {
             {!loading ? (
               <Button
                 type="submit"
-                className="flex mx-auto text-2xl px-12 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-purple-500 hover:scale-110"
+                className="flex mx-auto uppercase text-2xl px-12 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border-purple-500 hover:scale-110"
               >
                 Get 10 USDC
               </Button>
             ) : (
               <Button
-                className="flex mx-auto text-2xl px-12 py-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 border-purple-500 cursor-progress"
+                className="flex mx-auto uppercase text-2xl px-12 py-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 border-purple-500 cursor-progress"
                 disabled
               >
                 <div className="border-2 animate-spin w-8 h-8 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />

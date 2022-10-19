@@ -82,7 +82,7 @@ export default function Transfer({
               <div className="flex justify-center items-center">
                 <Button
                   type="button"
-                  className={`rounded-r-none w-1/2 font-bold sm:font-normal lg:font-bold ${
+                  className={`rounded-r-none uppercase w-1/2 font-bold sm:font-normal lg:font-bold ${
                     direction === DIRECTION.DEPOSIT ? 'bg-indigo-500' : ''
                   }`}
                   onClick={() => setDirection(DIRECTION.DEPOSIT)}
@@ -91,7 +91,7 @@ export default function Transfer({
                 </Button>
                 <Button
                   type="button"
-                  className={`rounded-l-none w-1/2 font-bold sm:font-normal lg:font-bold ${
+                  className={`rounded-l-none w-1/2 uppercase font-bold sm:font-normal lg:font-bold ${
                     direction === DIRECTION.WITHDRAW ? 'bg-indigo-500' : ''
                   }`}
                   onClick={() => setDirection(DIRECTION.WITHDRAW)}
@@ -124,13 +124,13 @@ export default function Transfer({
               {!loading ? (
                 <Button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-800 w-full mt-4"
+                  className="bg-indigo-600 hover:bg-indigo-800 w-full uppercase mt-4"
                 >
                   Transfer
                 </Button>
               ) : (
                 <Button
-                  className="flex justify-center cursor-progress w-full mt-4"
+                  className="flex justify-center cursor-progress w-full uppercase mt-4"
                   disabled
                 >
                   <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
