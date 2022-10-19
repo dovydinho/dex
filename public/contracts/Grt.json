@@ -78,8 +78,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -122,8 +121,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -136,8 +134,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -198,8 +195,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -212,8 +208,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -226,8 +221,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -7271,21 +7265,11 @@
   "ast": {
     "absolutePath": "project:/contracts/mocks/Grt.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "Grt": [
-        2193
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "Grt": [2193],
+      "IERC20": [663],
+      "IERC20Metadata": [688]
     },
     "id": 2194,
     "license": "GPL-3.0",
@@ -7293,15 +7277,7 @@
     "nodes": [
       {
         "id": 2168,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:6"
       },
@@ -7338,13 +7314,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2193,
-        "linearizedBaseContracts": [
-          2193,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [2193, 585, 688, 663, 710],
         "name": "Grt",
         "nameLocation": "142:3:6",
         "nodeType": "ContractDefinition",
@@ -7599,21 +7569,11 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/mocks/Grt.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "Grt": [
-        2193
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "Grt": [2193],
+      "IERC20": [663],
+      "IERC20Metadata": [688]
     },
     "id": 2194,
     "license": "GPL-3.0",
@@ -7621,15 +7581,7 @@
     "nodes": [
       {
         "id": 2168,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:6"
       },
@@ -7666,13 +7618,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2193,
-        "linearizedBaseContracts": [
-          2193,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [2193, 585, 688, 663, 710],
         "name": "Grt",
         "nameLocation": "142:3:6",
         "nodeType": "ContractDefinition",
@@ -7986,6 +7932,63 @@
       "address": "0xaA5d6eA48f9f54ede6BC4Eeb6817B6780F2675F0",
       "transactionHash": "0x4c64c43e082292c935ee31a32132083e00d748b70b45b5c20cc931956c4d6bad"
     },
+    "5": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xF28409dBfeC1e88F255e41d7F6EB707D366C2152",
+      "transactionHash": "0x0934f38c5517a5b3a62b4935eed7bbaa7ac6de22a77ec7b84c6508566a188ea5"
+    },
     "5777": {
       "events": {
         "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
@@ -8045,8 +8048,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-09-14T08:57:26.464Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-10-19T13:53:30.313Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

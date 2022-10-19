@@ -78,8 +78,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -122,8 +121,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -136,8 +134,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -198,8 +195,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -212,8 +208,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -226,8 +221,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -7271,21 +7265,11 @@
   "ast": {
     "absolutePath": "project:/contracts/mocks/Link.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Link": [
-        2220
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Link": [2220]
     },
     "id": 2221,
     "license": "GPL-3.0",
@@ -7293,15 +7277,7 @@
     "nodes": [
       {
         "id": 2195,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:7"
       },
@@ -7338,13 +7314,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2220,
-        "linearizedBaseContracts": [
-          2220,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [2220, 585, 688, 663, 710],
         "name": "Link",
         "nameLocation": "142:4:7",
         "nodeType": "ContractDefinition",
@@ -7599,21 +7569,11 @@
   "legacyAST": {
     "absolutePath": "project:/contracts/mocks/Link.sol",
     "exportedSymbols": {
-      "Context": [
-        710
-      ],
-      "ERC20": [
-        585
-      ],
-      "IERC20": [
-        663
-      ],
-      "IERC20Metadata": [
-        688
-      ],
-      "Link": [
-        2220
-      ]
+      "Context": [710],
+      "ERC20": [585],
+      "IERC20": [663],
+      "IERC20Metadata": [688],
+      "Link": [2220]
     },
     "id": 2221,
     "license": "GPL-3.0",
@@ -7621,15 +7581,7 @@
     "nodes": [
       {
         "id": 2195,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.7",
-          ".0",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "39:31:7"
       },
@@ -7666,13 +7618,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 2220,
-        "linearizedBaseContracts": [
-          2220,
-          585,
-          688,
-          663,
-          710
-        ],
+        "linearizedBaseContracts": [2220, 585, 688, 663, 710],
         "name": "Link",
         "nameLocation": "142:4:7",
         "nodeType": "ContractDefinition",
@@ -7986,6 +7932,63 @@
       "address": "0xcAEB6720E8A9F93c3D920b995730939ccB82bAB6",
       "transactionHash": "0x9f702e50050d4de847f63ec11de72c21db8bcebe74d5b906989b9812dd82dd60"
     },
+    "5": {
+      "events": {
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xDE55404409608C8426C5BabF206Cc739d345Ad2f",
+      "transactionHash": "0x55aaf7e4d16dbe39e062c1c889e45fbdd20d7770065d22322cfae97ec9275df3"
+    },
     "5777": {
       "events": {
         "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
@@ -8045,8 +8048,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-09-14T08:57:26.469Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-10-19T13:53:30.320Z",
   "devdoc": {
     "kind": "dev",
     "methods": {
