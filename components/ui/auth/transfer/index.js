@@ -19,7 +19,6 @@ export default function Transfer({
   const [direction, setDirection] = useState(DIRECTION.DEPOSIT);
   const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
-  // const { account } = useAccount();
   const account = hooks.useAccount();
 
   const deposit = async (amount) => {

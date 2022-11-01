@@ -23,7 +23,6 @@ export default function NewOrder({
 }) {
   const { hooks } = useWeb3();
   const [loading, setLoading] = useState(false);
-  // const { account } = useAccount();
   const account = hooks.useAccount();
   const [order, setOrder] = useState({
     type: TYPE.LIMIT,
