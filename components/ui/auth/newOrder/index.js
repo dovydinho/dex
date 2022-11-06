@@ -207,7 +207,7 @@ export default function NewOrder({
             className="flex justify-center cursor-progress w-full mt-4 uppercase"
             disabled
           >
-            <div className="border-2 animate-spin w-6 h-6 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
+            <div className="border-4 animate-spin w-6 h-6 border-b-4 border-b-purple-600 border-gray-200 rounded-full mr-2" />
             In process
           </Button>
         )}

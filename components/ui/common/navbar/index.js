@@ -72,7 +72,7 @@ export default function Navbar({ tokens, user, selectToken }) {
               </Button>
             ) : (
               <Button
-                className="px-6 py-2 border-purple-400 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                className="px-6 py-2 bg-gradient-to-r from-indigo-500 hover:from-indigo-400 via-purple-500 hover:via-purple-400 to-pink-500 hover:to-pink-400 border-purple-400"
                 onClick={connect}
               >
                 Connect to Metamask

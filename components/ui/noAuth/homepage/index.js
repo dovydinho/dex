@@ -41,7 +41,7 @@ export default function NoAuthHomepage() {
                   ) : account.data ? (
                     <Link href="/">
                       <a>
-                        <Button className="px-8 hover:text-gray-900 hover:bg-gray-100 font-bold inline-flex gap-2">
+                        <Button className="px-8 py-3 hover:text-gray-900 hover:bg-gray-100 font-bold inline-flex gap-2">
                           <Image
                             src="/img/avatarZoom.jpg"
                             width="25px"
@@ -63,17 +63,17 @@ export default function NoAuthHomepage() {
                           '_blank'
                         )
                       }
-                      className="px-8 font-bold border-2 border-purple-400 rounded-full hover:text-gray-900 hover:bg-gray-100 bg-red-500 text-gray-100 inline-flex"
+                      className="px-8 py-3 bg-red-500 hover:bg-gray-100 border-2 border-red-300 hover:border-gray-300 text-gray-100 hover:text-gray-900 flex text-lg"
                     >
                       <div className="animate-bounce mr-2">
-                        <ArrowCircleDownIcon className="w-6 h-6 m-auto" />
+                        <ArrowCircleDownIcon className="w-8 h-8" />
                       </div>
                       Install Metamask
                     </Button>
                   ) : (
                     <Button
                       onClick={connect}
-                      className="px-8 font-bold border-2 border-purple-400 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+                      className="px-8 py-3 border-2 bg-gradient-to-r from-indigo-500 hover:from-indigo-400 via-purple-500 hover:via-purple-400 to-pink-500 hover:to-pink-400 border-purple-400 text-lg"
                     >
                       Connect to Metamask
                     </Button>

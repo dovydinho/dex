@@ -45,7 +45,7 @@ export default function Seed({ web3, contracts, user, getBalances, setUser }) {
                 className="flex mx-auto uppercase text-2xl px-12 py-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 border-purple-500 cursor-progress"
                 disabled
               >
-                <div className="border-2 animate-spin w-8 h-8 border-b-2 border-b-gray-400 border-gray-100 rounded-full mr-2" />
+                <div className="border-4 animate-spin w-8 h-8 border-b-4 border-b-purple-600 border-gray-200 rounded-full mr-2" />
                 In process
               </Button>
             )}
