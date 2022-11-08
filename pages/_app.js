@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import '../styles/globals.css';
 
-// If layout is not set, return children in simple tags
-const NoLayout = ({ children }) => <>{children}</>;
+const Noop = ({ children }) => <>{children}</>;
 
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout ?? NoLayout;
+  const Layout = Component.Layout ?? Noop;
 
   const meta = {
     title: 'DEX - Web3 Application Demo',
