@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
+
 import { LoadingSpinner } from '@components/ui/common';
 
 export default function AllTradesChart({ trades, user, web3 }) {
@@ -150,18 +151,13 @@ export default function AllTradesChart({ trades, user, web3 }) {
               additionalClass={'rounded-2xl h-[497px] bg-black/[.25]'}
             />
           ) : (
-            <>
-              <div
-                id="chartContainer"
-                className="bg-black/[.25] p-4 rounded-2xl"
-              >
-                <Chart
-                  options={state.options}
-                  series={state.series}
-                  height={450}
-                />
-              </div>
-            </>
+            <div id="chartContainer" className="bg-black/[.25] p-4 rounded-2xl">
+              <Chart
+                options={state.options}
+                series={state.series}
+                height={450}
+              />
+            </div>
           )}
         </div>
       )}
