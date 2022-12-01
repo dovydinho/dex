@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { Button } from '@components/ui/common';
 
 export default function Seed({ web3, contracts, user, getBalances, setUser }) {
