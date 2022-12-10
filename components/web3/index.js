@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import Web3 from 'web3';
-import { getContracts } from '@utils/index';
 import detectEthereumProvider from '@metamask/detect-provider';
+
 import { setupHooks } from '@components/web3/hooks/setupHooks';
+import { getContracts } from '@utils/index';
 
 const Web3Context = createContext(null);
 
