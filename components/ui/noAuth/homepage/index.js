@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { Navbar, Footer, Button } from '@components/ui/common';
 import { ArrowCircleDownIcon } from '@heroicons/react/outline';
 import { useWeb3 } from '@components/web3';
